@@ -29,14 +29,15 @@ def get_predominant_color(file_path):
 def get_exif(file_path):
 
     imgfile = Image.open(file_path)
+    imgExif = imgfile._getexif()
 
-    exif_data = {
-        ExifTags.TAGS[k]: v
-        for k, v in imgfile._getexif().items()
-        if k in ExifTags.TAGS
-    }
-    return(exif_data)
+    if imgExif:
+        exif_data = {
+            ExifTags.TAGS[k]: v
+            for k, v in imgExif.items()
+            if k in ExifTags.TAGS
+        }
+        return(exif_data)
+    return ''
 
-
-
-print(get_exif("../../Assets/images/flower.jpg"))
+print(get_exif("./flower.jpg"))

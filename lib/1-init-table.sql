@@ -58,12 +58,12 @@ CREATE TABLE "artists" (
 
 ALTER TABLE "users" ADD FOREIGN KEY ("fk_preferences_id") REFERENCES "preferences" ("preference_id");
 
-ALTER TABLE "users" ADD FOREIGN KEY ("user_id") REFERENCES "history" ("fk_user_id");
+ALTER TABLE "history" ADD FOREIGN KEY ("fk_user_id") REFERENCES "users" ("user_id");
 
-ALTER TABLE "paintings" ADD FOREIGN KEY ("painting_id") REFERENCES "history" ("fk_painting_id");
+ALTER TABLE "history" ADD FOREIGN KEY ("fk_painting_id") REFERENCES "paintings" ("painting_id");
 
-ALTER TABLE "artists" ADD FOREIGN KEY ("artist_id") REFERENCES "paintings" ("fk_artist_id");
+ALTER TABLE "paintings" ADD FOREIGN KEY ("fk_artist_id") REFERENCES "artists" ("artist_id");
 
-ALTER TABLE "paintings" ADD FOREIGN KEY ("painting_id") REFERENCES "tags_list" ("fk_paintings_id");
+ALTER TABLE "tags_list" ADD FOREIGN KEY ("fk_paintings_id") REFERENCES "paintings" ("painting_id");
 
-ALTER TABLE "tags" ADD FOREIGN KEY ("tag_id") REFERENCES "tags_list" ("fk_tags_id");
+ALTER TABLE "tags_list" ADD FOREIGN KEY ("fk_tags_id") REFERENCES "tags" ("tag_id");
