@@ -1,1 +1,3 @@
-# data-mining-project
+# Data Mining Project
+
+Beldjilali Iliès & Folléas Brice

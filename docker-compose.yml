@@ -1,7 +1,8 @@
 version: '3.9'
 services:
   data-mining-project-database:
-    image: postgres
+    image: postgres:latest
+    container_name: data-mining-db
     environment:
       - POSTGRES_DB=data-mining-project
       - POSTGRES_USER=root
