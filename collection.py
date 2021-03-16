@@ -1,4 +1,6 @@
 from PIL import Image
+import PIL.ExifTags
+
 import numpy
 import math
 from sklearn.cluster import MiniBatchKMeans
@@ -23,4 +25,17 @@ def get_predominant_color(file_path):
     return primary_color
 
 
-print(get_predominant_color("../Assets/images/flower.jpg"))
+# print(get_predominant_color("../Assets/images/flower.jpg"))
+
+def get_exif(file_path):
+
+    imgfile = Image.open(file_path)
+
+    exif_data = {
+        PIL.ExifTags.TAGS[k]: v
+        for k, v in imgfile._getexif().items()
+        if k in PIL.ExifTags.TAGS
+    }
+    return(exif_data)
+
+print(get_exif("../Assets/images/flower.jpg"))
