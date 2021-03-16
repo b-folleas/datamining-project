@@ -4,6 +4,7 @@ services:
     image: postgres
     environment:
       - POSTGRES_DB=data-mining-project
+      - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
     volumes:
       - ./1-init-table-data-mining.sql:/docker-entrypoint-initdb.d/1-init-table.sql
