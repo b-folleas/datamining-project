@@ -1,4 +1,4 @@
-import settings
+import kaggle_settings
 import kaggle
 from kaggle.api.kaggle_api_extended import KaggleApi
 import random
