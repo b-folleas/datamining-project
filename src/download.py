@@ -7,16 +7,31 @@ import random
 api = KaggleApi()
 api.authenticate()
 
-number_of_file = 30
 
-# list dataset files
-image_list = api.dataset_list_files('ikarus777/best-artworks-of-all-time').files
+# Select at most <number_of_files> random image urls from a given dataset
+def choose_rand_image(dataset, number_of_files):
 
-print("choosing " , number_of_file, "random images from  the image list")
+    random_image_list = []
 
-for k in range(number_of_file):
-    file = random.choice(image_list)
-    print("downloading ", file)
-    api.dataset_download_file('ikarus777/best-artworks-of-all-time', str(file), path='../../Assets/images', force=False, quiet=False)
+    # list dataset files
+    image_list = api.dataset_list_files(dataset).files
+    print("choosing ", number_of_files, "random images from  the image list")
 
-print("download finished")
+    for k in range(number_of_files):
+        file = random.choice(image_list)
+        print("Image", k, file)
+        random_image_list.append(file)
+
+    return random_image_list
+
+
+def download_images(image_list):
+    for k in range(len(image_list)):
+        file = image_list[0]
+        print("Downloading", k, file)
+        api.dataset_download_file('ikarus777/best-artworks-of-all-time', str(file), path='../../Assets/images', force=False, quiet=False)
+    print("download finished")
+
+image_list = choose_rand_image('ikarus777/best-artworks-of-all-time', 30)
+# download_images(image_list)
+

@@ -1,5 +1,4 @@
-from PIL import Image
-import PIL.ExifTags
+from PIL import Image,ExifTags
 
 import numpy
 import math
@@ -32,10 +31,12 @@ def get_exif(file_path):
     imgfile = Image.open(file_path)
 
     exif_data = {
-        PIL.ExifTags.TAGS[k]: v
+        ExifTags.TAGS[k]: v
         for k, v in imgfile._getexif().items()
-        if k in PIL.ExifTags.TAGS
+        if k in ExifTags.TAGS
     }
     return(exif_data)
 
-print(get_exif("../Assets/images/flower.jpg"))
+
+
+print(get_exif("../../Assets/images/flower.jpg"))
