@@ -15,10 +15,10 @@ def choose_rand_image(dataset, number_of_files):
 
     # list dataset files
     image_list = api.dataset_list_files(dataset).files
-    print("choosing ", number_of_files, "random images from  the image list")
+    print("Choosing", number_of_files, "random images from the image list")
 
     for k in range(number_of_files):
-        file = random.choice(image_list)
+        file = random.choice([i for i in image_list if i.name.startswith('images/')]) # Getting random images
         print("Image", k, file)
         random_image_list.append(file)
 
