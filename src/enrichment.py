@@ -6,8 +6,8 @@ from sklearn.cluster import MiniBatchKMeans
 
 
 def get_predominant_color(file_path):
-    imgfile = Image.open(file_path)
-    numarray = numpy.array(imgfile.getdata(), numpy.uint8)
+    img_file = Image.open(file_path)
+    numarray = numpy.array(img_file.getdata(), numpy.uint8)
 
     cluster_count = 1  # Numbers of clusters
 
@@ -15,24 +15,21 @@ def get_predominant_color(file_path):
     clusters = MiniBatchKMeans(n_clusters=cluster_count)
     clusters.fit(numarray)
 
-    # get color
+    # Get primary color
     primary_color = '#%02x%02x%02x' % (
         math.ceil(clusters.cluster_centers_[0][0]),
         math.ceil(clusters.cluster_centers_[0][1]),
         math.ceil(clusters.cluster_centers_[0][2]))
 
+    print("Primary color :") # Test phase
+    print(primary_color) # Test phase
     return primary_color
 
 
-# print(get_predominant_color("../Assets/images/flower.jpg"))
-
 def get_exif(file_path):
-    imgfile = Image.open(file_path)
-    width, height = imgfile.size
-
-    print(width, height)
-
-    img_exif = imgfile._getexif()
+    img_file = Image.open(file_path)
+    
+    img_exif = img_file._getexif()
 
     if img_exif:
         exif_data = {
@@ -45,38 +42,48 @@ def get_exif(file_path):
     return 'no exif'
 
 
-def enrich_data():
-    image_metadata = {
+def enrich_data(exif_data, file_path):
+    img_meta_data = {
         "color_primary": '',
         "color_secondary": '',
-        "size_x": 0,
-        "size_y": 0,
         "orientation": '',
         "flash": 0,
-        "exif_painting_width": 0,
-        "exif_painting_height": 0,
+        "width": 0,
+        "height": 0,
         "date": '',
         "camera_make": '',
         "camera_model": '',
         "geo_data": ''
     }
 
-'''
-image_metadata["color_primary"] = 1
-image_metadata["color_secondary"] = 1
-image_metadata["orientation"] = 1
-image_metadata["flash"] = 1
+    img_meta_data["color_primary"] = (get_predominant_color(file_path))
+    img_meta_data["color_secondary"] = 1
+    img_meta_data["orientation"] = 1
+    img_meta_data["flash"] = 1
 
-image_metadata["exif_painting_width"] = exif_data['ExifImageWidth']
-image_metadata["exif_painting_height"] = exif_data['ExifImageHeight']
-image_metadata["date"] = exif_data['DateTimeDigitized']
+    img_meta_data["width"] = exif_data['ExifImageWidth']
+    img_meta_data["height"] = exif_data['ExifImageHeight']
+    img_meta_data["date"] = exif_data['DateTimeDigitized']
+
+    img_meta_data["camera_make"] = exif_data['Make']
+    img_meta_data["camera_model"] = exif_data['Model']
+
+    return img_meta_data
 
 
-image_metadata["size_x"] = width
-image_metadata["size_y"] = height
-image_metadata["camera_make"] = exif_data['Make']
-image_metadata["camera_model"] = exif_data['Model']
+def set_img_data(file_path):
+    img_exif_data = get_exif(file_path)
+    img_meta_data = enrich_data(img_exif_data, file_path)
 
-print(image_metadata)
-'''
-print(get_exif("../../Assets/images/flower.jpg"))
+    print("Image meta_data :") # Test phase
+    print(img_meta_data) # Test phase
+    return img_meta_data
+
+
+# Setting an img_file_path to get meta_data from 
+img_file_path = "./flower.jpg" # Test phase
+
+# Setting img_metada
+img_meta_data = set_img_data(img_file_path)
+
+# Then insert this data in database
