@@ -3,6 +3,9 @@ from PIL import Image, ExifTags
 import numpy
 import math
 from sklearn.cluster import MiniBatchKMeans
+import datetime
+
+import database_connection
 
 
 def get_predominant_color(file_path):
@@ -44,6 +47,7 @@ def get_exif(file_path):
 
 def enrich_data(exif_data, file_path):
     img_meta_data = {
+        "painting_url": '',
         "color_primary": '',
         "color_secondary": '',
         "orientation": '',
@@ -55,6 +59,7 @@ def enrich_data(exif_data, file_path):
         "camera_model": '',
         "geo_data": ''
     }
+    img_meta_data["painting_url"] = file_path # To change, done here beacause of not null constraint
 
     img_meta_data["color_primary"] = (get_predominant_color(file_path))
     img_meta_data["color_secondary"] = 1
@@ -63,7 +68,8 @@ def enrich_data(exif_data, file_path):
 
     img_meta_data["width"] = exif_data['ExifImageWidth']
     img_meta_data["height"] = exif_data['ExifImageHeight']
-    img_meta_data["date"] = exif_data['DateTimeDigitized']
+    # img_meta_data["date"] = datetime.date.fromisoformat(exif_data['DateTimeDigitized'])
+    img_meta_data["date"] = datetime.date.today()
 
     img_meta_data["camera_make"] = exif_data['Make']
     img_meta_data["camera_model"] = exif_data['Model']
@@ -80,10 +86,39 @@ def set_img_data(file_path):
     return img_meta_data
 
 
-# Setting an img_file_path to get meta_data from 
-img_file_path = "./flower.jpg" # Test phase
+if __name__ == "__main__" :
 
-# Setting img_metada
-img_meta_data = set_img_data(img_file_path)
+    # Setting an img_file_path to get meta_data from 
+    img_file_path = "./flower.jpg" # Test phase
 
-# Then insert this data in database
+    # Setting img_metada
+    img_meta_data = set_img_data(img_file_path)
+
+    # Then insert this data in database
+
+    # Connect to database
+    connection = database_connection.connect_database()
+    cursor = database_connection.create_cursor(connection)
+
+    # Insert database
+    statement = "INSERT INTO paintings (painting_url, color_primary, color_secondary,\
+        orientation, flash, width, height, date, camera_make, camera_model, geo_data)\
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+
+    values = (img_meta_data["painting_url"], img_meta_data["color_primary"], img_meta_data["color_secondary"],\
+        img_meta_data["orientation"], img_meta_data["flash"], img_meta_data["width"],\
+            img_meta_data["height"], img_meta_data["date"], img_meta_data["camera_make"],\
+                img_meta_data["camera_model"], img_meta_data["geo_data"]) 
+
+    cursor.execute(statement, values)
+
+    # Then commit changes to the database
+
+    connection.commit() # Very important
+    print("Values inserted.")
+
+    # Close the cursor object to avoid memory leaks
+    cursor.close()
+
+    # Close the connection as well
+    connection.close()
