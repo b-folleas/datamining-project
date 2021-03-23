@@ -28,19 +28,20 @@ def create_cursor(connection):
 
 
 if __name__ == "__main__" :
-
+    
+    # Test phase
     connection = connect_database()
     cursor = create_cursor(connection)
 
-    # Test phase
     print("Testing schema")
     cursor.execute("SELECT tablename FROM pg_catalog.pg_tables WHERE schemaname='public'")    # execute 'SHOW TABLES' (but data is not returned)
     tables = cursor.fetchall() # return data from last query
     print(tables)
-    # End Test phase
 
     # Close the cursor object to avoid memory leaks
     cursor.close()
 
     # Close the connection as well
     connection.close()
+    
+    # End Test phase

@@ -21,7 +21,7 @@ CREATE TABLE "preferences" (
 
 CREATE TABLE "paintings" (
   "painting_id" SERIAL PRIMARY KEY,
-  "painting_url" varchar UNIQUE NOT NULL,
+  "painting_path" varchar UNIQUE NOT NULL,
   "fk_artist_id" int,
   "color_primary" varchar NOT NULL,
   "color_secondary" varchar,
