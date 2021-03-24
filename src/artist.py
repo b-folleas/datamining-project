@@ -1,17 +1,21 @@
 import pandas as pandas
 import kaggle_settings
-
 from kaggle.api.kaggle_api_extended import KaggleApi
+
 
 api = KaggleApi()
 api.authenticate()
 
+FOLDER_PATH = '../../Assets'
+
 # option to print all datas
 pandas.set_option('display.max_columns', None)
 
-
+# downloading artists.csv file into ../../Assets that contains all metadata for each artist
 def download_artists():
-    api.dataset_download_file('ikarus777/best-artworks-of-all-time', 'artists.csv', path='../../Assets', force=False,
+    print('Dowloading artists csv file...')
+
+    api.dataset_download_file('ikarus777/best-artworks-of-all-time', 'artists.csv', path=FOLDER_PATH, force=False,
                               quiet=False)
 
 
@@ -22,9 +26,10 @@ def seed_artists():
         years_list = years.split(' ')
         mean = (int(years_list[0].strip()) + int(years_list[2].strip())) / 2
         return (mean // 100 + 1)
-    def get_first(genre):
-        genre = genre.split(',')[0]
-        return (genre)
+
+    def get_first(items):
+        item = items.split(',')[0]
+        return (item)
 
     dataframe = pandas.read_csv('../../Assets/artists.csv')
 
@@ -41,9 +46,13 @@ def seed_artists():
                                         "paintings": "int64"})
     # column rename
     dataframe = dataframe.rename(columns={"years": "century"})
+    dataframe = dataframe.rename(columns={"paintings": "number_paintings"})
     return dataframe # TODO send to database
 
-download_artists()
-seed_artists()
+if __name__ == "__main__" :
 
-print(seed_artists().head())
+    download_artists()
+    seed_artists()
+
+    print(seed_artists())
+    print(seed_artists().head())

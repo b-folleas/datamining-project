@@ -1,18 +1,44 @@
 import download
 import enrichment
 import insertion
+import artist
 
 if __name__ == "__main__" :
-
+    '''
     images_source = 'ikarus777/best-artworks-of-all-time'
-    insert_table = 'paintings'
 
     # Getting all the downloaded images in a list from download.py
     
     # Choosing random images
     images_list = download.choose_rand_image(images_source, 30)
+    '''
+    # Downloading artists data
+    artist.download_artists()
+
+    # Getting all artists data
+    artists = artist.seed_artists()
+
+    # Set insert_table before insertion
+    insert_table = 'artists'
+
+    # Go through each artist to insert it's data in the database
+    artist_data_keys = artists.columns.tolist()
+    print(artist_data_keys)
+
+    for a in range(1,artists.size):
+        print(artists.values[a])
+    
+        artist_data_values = artists.values[a]
+        print(artist_data_values)
+
+        insertion.insert(insert_table, artist_data_keys, artist_data_values)
+
+    '''
     # Downloading these images
     download.download_images(images_list)
+
+    # Set insert_table before insertion
+    insert_table = 'paintings'
 
     # Go through each images_list item to get it's meta-data
     for image in images_list :
@@ -25,4 +51,4 @@ if __name__ == "__main__" :
         meta_data_values = list(img_meta_data.values())
 
         insertion.insert(insert_table, meta_data_keys, meta_data_values)
-    
+    '''
