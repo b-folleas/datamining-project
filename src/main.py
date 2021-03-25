@@ -43,7 +43,7 @@ if __name__ == "__main__" :
     # Go through each images_list item to get it's meta-data
     for image in images_list :
         print(image["path"])
-        img_meta_data = enrichment.set_img_data(image["path"])  
+        img_meta_data = enrichment.set_img_data(image)  
 
         print(img_meta_data)
         # Inserting these metadata of each image into the table paintings of the database

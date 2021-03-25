@@ -1,6 +1,7 @@
 import pandas as pandas
 import kaggle_settings
 from kaggle.api.kaggle_api_extended import KaggleApi
+import database_connection
 
 
 api = KaggleApi()
@@ -47,7 +48,28 @@ def seed_artists():
     # column rename
     dataframe = dataframe.rename(columns={"years": "century"})
     dataframe = dataframe.rename(columns={"paintings": "number_paintings"})
-    return dataframe # TODO send to database
+    return dataframe
+
+
+def get_artist_from_name(name):
+    # Connect to database
+    connection = database_connection.connect_database()
+    cursor = database_connection.create_cursor(connection)
+
+    statement = "SELECT artist_id FROM artists AS a WHERE a.name LIKE '%"+ name + "%'" 
+    
+    print(statement)
+    
+    cursor.execute(statement)
+    id = cursor.fetchone()[0] # return data from last query
+
+    # Close the cursor object to avoid memory leaks
+    cursor.close()
+
+    # Close the connection as well
+    connection.close()
+
+    return id
 
 if __name__ == "__main__" :
 
