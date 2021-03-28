@@ -2,6 +2,7 @@ CREATE TABLE "users" (
   "user_id" SERIAL PRIMARY KEY,
   "fk_preferences_id" int,
   "username" varchar UNIQUE NOT NULL,
+  "email" varchar UNIQUE NOT NULL,
   "password" varchar NOT NULL
 );
 

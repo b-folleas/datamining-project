@@ -8,7 +8,8 @@ services:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
     volumes:
-      - ./lib/1-init-table.sql:/docker-entrypoint-initdb.d/1-init-table.sql
+      - ./lib/initdb/1-init-table.sql:/docker-entrypoint-initdb.d/1-init-table.sql
+      - ./lib/initdb/2-insert-data.sql:/docker-entrypoint-initdb.d/2-insert-data.sql
     ports:
       - "5432:5432"
     restart: always
