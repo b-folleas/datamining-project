@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import pandas as pandas
 import kaggle_settings
 from kaggle.api.kaggle_api_extended import KaggleApi

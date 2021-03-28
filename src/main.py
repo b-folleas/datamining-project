@@ -1,17 +1,18 @@
+# -*- coding: utf-8 -*-
+
 import download
 import enrichment
 import insertion
 import artist
 
 if __name__ == "__main__" :
-
     images_source = 'ikarus777/best-artworks-of-all-time'
 
     # Getting all the downloaded images in a list from download.py
     
     # Choosing random images
     images_list = download.choose_rand_image(images_source, 30)
-
+   
     # Downloading artists data
     artist.download_artists(images_source)
 
@@ -25,14 +26,15 @@ if __name__ == "__main__" :
     artist_data_keys = artists.columns.tolist()
     print(artist_data_keys)
 
-    for a in range(1,artists.size):
-        print(artists.values[a])
+    print('Artist size :', artists.index)
+
+    for a in artists.index:
+        # print(artists.values[a])
     
         artist_data_values = artists.values[a]
         print(artist_data_values)
 
         insertion.insert(insert_table, artist_data_keys, artist_data_values)
-
 
     # Downloading these images
     download.download_images(images_list)

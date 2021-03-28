@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from PIL import Image, ExifTags
 
 import numpy
@@ -30,8 +32,12 @@ def get_predominant_color(image):
 
 
 def get_exif(image):
-    img_file = Image.open(image["path"])
-    img_exif = img_file._getexif()
+    try :
+        img_file = Image.open(image["path"])
+        img_exif = img_file._getexif()
+    except(e) :
+        print('Error open file :', e)
+
 
     if img_exif:
         exif_data = {
@@ -44,7 +50,9 @@ def get_exif(image):
     return None
 
 
-def enrich_data(exif_data, image):
+def set_img_data(image):
+    img_exif_data = get_exif(image)
+    
     img_meta_data = {
         "painting_path": '',
         "fk_artist_id": '',
@@ -76,27 +84,20 @@ def enrich_data(exif_data, image):
     
     img_meta_data["date"] = datetime.date.today().strftime("%m/%d/%Y")
 
-    # Adding meta_data through exif_data
-    if exif_data != None :
+    # Adding meta_data through img_exif_data
+    if img_exif_data != None :
         # Date of creation of the image, if not, use today's date
-        img_meta_data["date"] = datetime.datetime.strptime(exif_data['DateTimeDigitized'], '%Y:%m:%d %H:%M:%S').date().strftime("%m/%d/%Y")
+        img_meta_data["date"] = datetime.datetime.strptime(img_exif_data['DateTimeDigitized'], '%Y:%m:%d %H:%M:%S').date().strftime("%m/%d/%Y")
 
-        img_meta_data["orientation"] = exif_data["Orientation"]
-        img_meta_data["flash"] = exif_data["Flash"]
-        img_meta_data["camera_make"] = exif_data['Make']
-        img_meta_data["camera_model"] = exif_data['Model']
+        img_meta_data["orientation"] = img_exif_data["Orientation"]
+        img_meta_data["flash"] = img_exif_data["Flash"]
+        img_meta_data["camera_make"] = img_exif_data['Make']
+        img_meta_data["camera_model"] = img_exif_data['Model']
 
     print(img_meta_data)
-    return img_meta_data
-
-
-def set_img_data(image):
-    img_exif_data = get_exif(image)
-    img_meta_data = enrich_data(img_exif_data, image)
 
     return img_meta_data
 
-    return 1
 
 if __name__ == "__main__" :
 

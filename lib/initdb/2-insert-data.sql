@@ -1,4 +1,4 @@
-CREATE EXTENSION pgcrypto;
+/* Insertion script for first users */
 
 INSERT INTO users (
     username,
@@ -9,15 +9,15 @@ VALUES
     (
         'superuser',
         'superuser@email.com',
-        crypt('superuserpassword', gen_salt('bf'))
+        'superuserpassword'
     ),
     (
         'toto',
         'toto@france.fr',
-        crypt('totopassword', gen_salt('bf'))
+        'totopassword'
     ),
     (
         'belette',
         'belette@live.live',
-        crypt('belettepassword', gen_salt('bf'))
+        'belettepassword'
     );
