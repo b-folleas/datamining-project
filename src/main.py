@@ -4,18 +4,18 @@ import insertion
 import artist
 
 if __name__ == "__main__" :
-    '''
+
     images_source = 'ikarus777/best-artworks-of-all-time'
 
     # Getting all the downloaded images in a list from download.py
     
     # Choosing random images
     images_list = download.choose_rand_image(images_source, 30)
-    '''
-    # Downloading artists data
-    artist.download_artists()
 
-    # Getting all artists data
+    # Downloading artists data
+    artist.download_artists(images_source)
+
+    # Seeding all artists data to the database
     artists = artist.seed_artists()
 
     # Set insert_table before insertion
@@ -33,7 +33,7 @@ if __name__ == "__main__" :
 
         insertion.insert(insert_table, artist_data_keys, artist_data_values)
 
-    '''
+
     # Downloading these images
     download.download_images(images_list)
 
@@ -51,4 +51,3 @@ if __name__ == "__main__" :
         meta_data_values = list(img_meta_data.values())
 
         insertion.insert(insert_table, meta_data_keys, meta_data_values)
-    '''

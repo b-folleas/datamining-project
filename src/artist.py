@@ -3,6 +3,10 @@ import kaggle_settings
 from kaggle.api.kaggle_api_extended import KaggleApi
 import database_connection
 
+'''
+Get Artists data
+'''
+
 
 api = KaggleApi()
 api.authenticate()
@@ -13,10 +17,10 @@ FOLDER_PATH = '../../Assets'
 pandas.set_option('display.max_columns', None)
 
 # downloading artists.csv file into ../../Assets that contains all metadata for each artist
-def download_artists():
+def download_artists(images_source):
     print('Dowloading artists csv file...')
 
-    api.dataset_download_file('ikarus777/best-artworks-of-all-time', 'artists.csv', path=FOLDER_PATH, force=False,
+    api.dataset_download_file(images_source, 'artists.csv', path=FOLDER_PATH, force=False,
                               quiet=False)
 
 
@@ -56,7 +60,7 @@ def get_artist_from_name(name):
     connection = database_connection.connect_database()
     cursor = database_connection.create_cursor(connection)
 
-    statement = "SELECT artist_id FROM artists AS a WHERE a.name LIKE '%"+ name + "%'" 
+    statement = "SELECT artist_id FROM artists AS a WHERE a.name LIKE '%"+ name + "%'" # ajouter une limite 1 ?
     
     print(statement)
     
@@ -66,7 +70,7 @@ def get_artist_from_name(name):
     # Close the cursor object to avoid memory leaks
     cursor.close()
 
-    # Close the connection as well
+    # Close the connection
     connection.close()
 
     return id

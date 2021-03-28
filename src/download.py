@@ -34,6 +34,7 @@ def choose_rand_image(dataset, number_of_files):
         image["artist"] = artist_key
         random_images_list.append(image)
 
+
     return random_images_list
 
 

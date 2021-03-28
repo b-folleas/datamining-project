@@ -1,9 +1,3 @@
-/* Insertion script for first users */
-
-/*** using pgcrypto to encrypt our password
-/* using gen_salt function with blowfish algorithm 
-/* which is the best algorithm supported by crypt() function 
-***/
 CREATE EXTENSION pgcrypto;
 
 INSERT INTO users (
