@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 # Import the connect library from psycopg2
+import sys
+
 from psycopg2 import connect
 
 
@@ -22,7 +24,7 @@ def create_cursor(connection):
     try :
         cursor = connection.cursor()
     except :
-        print("Error :" + sys.exc_info()[0])
+        print("Error :" + sys.exc_info()[0])  
 
     return cursor
 
