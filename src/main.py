@@ -48,8 +48,13 @@ if __name__ == "__main__" :
         img_meta_data = enrichment.set_img_data(image)  
 
         print(img_meta_data)
-        # Inserting these metadata of each image into the table paintings of the database
-        meta_data_keys = list(img_meta_data.keys())
-        meta_data_values = list(img_meta_data.values())
 
-        insertion.insert(insert_table, meta_data_keys, meta_data_values)
+        if img_meta_data :
+            # Inserting these metadata of each image into the table paintings of the database
+            meta_data_keys = list(img_meta_data.keys())
+            meta_data_values = list(img_meta_data.values())
+
+            insertion.insert(insert_table, meta_data_keys, meta_data_values)
+        else :
+            print("No insertion available, meta data is None")
+    print("End of data extraction, enrichment and load.")

@@ -10,9 +10,10 @@ from pathlib import Path
 import artist
 
 
-def get_predominant_color(image):
-    img_file = Image.open(image["path"])
-    numarray = numpy.array(img_file.getdata(), numpy.uint8)
+def get_predominant_color(img):
+    numarray = numpy.array(img.getdata(), numpy.uint8)
+
+    numarray.reshape(1, -1)
 
     cluster_count = 1  # Numbers of clusters
 
@@ -32,11 +33,12 @@ def get_predominant_color(image):
 
 
 def get_exif(image):
+    img_exif = None
     try :
         img_file = Image.open(image["path"])
         img_exif = img_file._getexif()
-    except(e) :
-        print('Error open file :', e)
+    except FileNotFoundError:
+        print("Error :", FileNotFoundError)
 
 
     if img_exif:
@@ -55,7 +57,7 @@ def set_img_data(image):
     
     img_meta_data = {
         "painting_path": '',
-        "fk_artist_id": '',
+        "fk_artist_id": 0,
         "color_primary": '',
         "color_secondary": '',
         "orientation": 0,
@@ -68,35 +70,39 @@ def set_img_data(image):
         "geo_data": ''
     }
 
-    img = Image.open(image["path"])
-    width, height = img.size
-
-    img_meta_data["painting_path"] = image["path"] # To change, done here beacause of not null constraint
-    print(image["artist"])
-    img_meta_data["fk_artist_id"] = artist.get_artist_from_name(image["artist"])
-
-    # Getting painting primary color
-    img_meta_data["color_primary"] = (get_predominant_color(image))
-    img_meta_data["color_secondary"] = 1
+    try :
+        img = Image.open(image["path"])
+        width, height = img.size
     
-    img_meta_data["width"] = width
-    img_meta_data["height"] = height
-    
-    img_meta_data["date"] = datetime.date.today().strftime("%m/%d/%Y")
+        img_meta_data["painting_path"] = image["path"] # To change, done here beacause of not null constraint
+        print(image["artist"])
+        img_meta_data["fk_artist_id"] = artist.get_artist_from_name(image["artist"])
 
-    # Adding meta_data through img_exif_data
-    if img_exif_data != None :
-        # Date of creation of the image, if not, use today's date
-        img_meta_data["date"] = datetime.datetime.strptime(img_exif_data['DateTimeDigitized'], '%Y:%m:%d %H:%M:%S').date().strftime("%m/%d/%Y")
+        # Getting painting primary color
+        img_meta_data["color_primary"] = get_predominant_color(img)
+        img_meta_data["color_secondary"] = 1
+        
+        img_meta_data["width"] = width
+        img_meta_data["height"] = height
+        
+        img_meta_data["date"] = datetime.date.today().strftime("%m/%d/%Y")
 
-        img_meta_data["orientation"] = img_exif_data["Orientation"]
-        img_meta_data["flash"] = img_exif_data["Flash"]
-        img_meta_data["camera_make"] = img_exif_data['Make']
-        img_meta_data["camera_model"] = img_exif_data['Model']
+        # Adding meta_data through img_exif_data
+        if img_exif_data != None :
+            # Date of creation of the image, if not, use today's date
+            img_meta_data["date"] = datetime.datetime.strptime(img_exif_data['DateTimeDigitized'], '%Y:%m:%d %H:%M:%S').date().strftime("%m/%d/%Y")
 
-    print(img_meta_data)
+            img_meta_data["orientation"] = img_exif_data["Orientation"]
+            img_meta_data["flash"] = img_exif_data["Flash"]
+            img_meta_data["camera_make"] = img_exif_data['Make']
+            img_meta_data["camera_model"] = img_exif_data['Model']
 
-    return img_meta_data
+        return img_meta_data
+
+    except FileNotFoundError:
+        print("Error :", FileNotFoundError)
+        
+        return None
 
 
 if __name__ == "__main__" :

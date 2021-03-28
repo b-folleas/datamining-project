@@ -58,6 +58,9 @@ def seed_artists():
 
 
 def get_artist_from_name(name):
+
+    id = 0
+
     # Connect to database
     connection = database_connection.connect_database()
     cursor = database_connection.create_cursor(connection)
@@ -67,7 +70,10 @@ def get_artist_from_name(name):
     print(statement)
     
     cursor.execute(statement)
-    id = cursor.fetchone()[0] # return data from last query
+    try :
+        id = cursor.fetchone()[0] # return data from last query
+    except TypeError:
+        print("Error :", TypeError)
 
     # Close the cursor object to avoid memory leaks
     cursor.close()
