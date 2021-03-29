@@ -75,7 +75,6 @@ def select(statement):
     try:
         cursor.execute(statement)
         result = cursor.fetchall()  # return data from last query
-        print(result)
     except ValueError:
         print("Error while fetching data :", ValueError)
 
@@ -101,6 +100,6 @@ if __name__ == "__main__":
     close_cursor(cursor)
 
     # Close the connection as well
-    close_connection(connection)
+    close_connection(CONNECTION)
 
     # End Test phase

@@ -8,10 +8,9 @@ import artist
 
 if __name__ == "__main__":
     images_source = 'ikarus777/best-artworks-of-all-time'
-    # Connect to database, return connection
 
+    # Connect to database, return connection
     database_driver.connect_database()
-    # Getting all the downloaded images in a list from download.py
 
     # Choosing random images
     images_list = download.choose_rand_image(images_source, 30)
@@ -63,3 +62,6 @@ if __name__ == "__main__":
         else:
             print("No insertion available, meta data is None")
     print("End of data extraction, enrichment and load.")
+
+    # Close database connection at the end of main script
+    database_driver.close_connection(database_driver.CONNECTION)
