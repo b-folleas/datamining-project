@@ -3,7 +3,7 @@
 import pandas as pandas
 import kaggle_settings
 from kaggle.api.kaggle_api_extended import KaggleApi
-import database_connection
+import database_driver
 
 '''
 Get Artists data
@@ -61,32 +61,19 @@ def get_artist_from_name(name):
 
     id = 0
 
-    # Connect to database
-    connection = database_connection.connect_database()
-    cursor = database_connection.create_cursor(connection)
-
-    statement = "SELECT artist_id FROM artists AS a WHERE a.name LIKE '%"+ name + "%'" # ajouter une limite 1 ?
-    
-    print(statement)
-    
-    cursor.execute(statement)
     try :
-        id = cursor.fetchone()[0] # return data from last query
-    except TypeError:
-        print("Error :", TypeError)
-
-    # Close the cursor object to avoid memory leaks
-    cursor.close()
-
-    # Close the connection
-    connection.close()
-
+        id = database_driver.select("SELECT artist_id FROM artists AS a WHERE a.name LIKE '%"+ name + "%'")[0]
+    except ValueError :
+        print("Error while fetching data :", ValueError)
     return id
 
 if __name__ == "__main__" :
 
-    download_artists()
-    seed_artists()
+    # download_artists()
+    # seed_artists()
 
-    print(seed_artists())
-    print(seed_artists().head())
+    # print(seed_artists())
+    # print(seed_artists().head())
+
+    
+    print(get_artist_from_name("")) 
