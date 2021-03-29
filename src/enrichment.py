@@ -11,6 +11,10 @@ import artist
 
 
 def get_predominant_color(img):
+    """Get the predominant color of an image using MiniBatchKMeans clusterisation.
+    :param img: An image file which has been already opened.
+    :return: The predominant color as a string with the format #hexadecimal.
+    """
     numarray = numpy.array(img.getdata(), numpy.uint8)
 
     numarray.reshape(1, -1)
@@ -27,19 +31,20 @@ def get_predominant_color(img):
         math.ceil(clusters.cluster_centers_[0][1]),
         math.ceil(clusters.cluster_centers_[0][2]))
 
-    print("Primary color :") # Test phase
-    print(primary_color) # Test phase
     return primary_color
 
 
 def get_exif(image):
+    """Get exif data from an image object.
+    :param image: An image object stored in the images_list.
+    :return: exif data or None.
+    """
     img_exif = None
-    try :
+    try:
         img_file = Image.open(image["path"])
         img_exif = img_file._getexif()
     except FileNotFoundError:
         print("Error :", FileNotFoundError)
-
 
     if img_exif:
         exif_data = {
@@ -53,8 +58,12 @@ def get_exif(image):
 
 
 def set_img_data(image):
+    """Set the meta data to be inserted in database of an image object.
+    :param images_list: A standard list containing images object.
+    :return: Object of the image meta data.
+    """
     img_exif_data = get_exif(image)
-    
+
     img_meta_data = {
         "painting_path": '',
         "fk_artist_id": 0,
@@ -70,27 +79,30 @@ def set_img_data(image):
         "geo_data": ''
     }
 
-    try :
+    try:
         img = Image.open(image["path"])
         width, height = img.size
-    
-        img_meta_data["painting_path"] = image["path"] # To change, done here beacause of not null constraint
+
+        # To change, done here beacause of not null constraint
+        img_meta_data["painting_path"] = image["path"]
         print(image["artist"])
-        img_meta_data["fk_artist_id"] = artist.get_artist_from_name(image["artist"])
+        img_meta_data["fk_artist_id"] = artist.get_artist_from_name(
+            image["artist"])
 
         # Getting painting primary color
         img_meta_data["color_primary"] = get_predominant_color(img)
         img_meta_data["color_secondary"] = 1
-        
+
         img_meta_data["width"] = width
         img_meta_data["height"] = height
-        
+
         img_meta_data["date"] = datetime.date.today().strftime("%m/%d/%Y")
 
         # Adding meta_data through img_exif_data
-        if img_exif_data != None :
+        if img_exif_data != None:
             # Date of creation of the image, if not, use today's date
-            img_meta_data["date"] = datetime.datetime.strptime(img_exif_data['DateTimeDigitized'], '%Y:%m:%d %H:%M:%S').date().strftime("%m/%d/%Y")
+            img_meta_data["date"] = datetime.datetime.strptime(
+                img_exif_data['DateTimeDigitized'], '%Y:%m:%d %H:%M:%S').date().strftime("%m/%d/%Y")
 
             img_meta_data["orientation"] = img_exif_data["Orientation"]
             img_meta_data["flash"] = img_exif_data["Flash"]
@@ -101,15 +113,15 @@ def set_img_data(image):
 
     except FileNotFoundError:
         print("Error :", FileNotFoundError)
-        
+
         return None
 
 
-if __name__ == "__main__" :
+if __name__ == "__main__":
 
     image = {}
-    # Setting an img_file_path to get meta_data from 
-    image["path"] = "./flower.jpg" # Test phase
+    # Setting an img_file_path to get meta_data from
+    image["path"] = "./flower.jpg"  # Test phase
     image["artist"] = "Monet"
 
     # Setting img_metada

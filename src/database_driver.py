@@ -6,30 +6,38 @@ from psycopg2 import connect
 
 CONNECTION = None
 
+
 def connect_database():
+    """Standard method to connect to the database.
+    The dbname, user, host, password are the specific attributes to specify.
+    """
 
     global CONNECTION
 
     # Declare connection instance
     CONNECTION = connect(
-        dbname = "data-mining-project",
-        user = "root",
-        host = "127.0.0.1",
-        password = "root"
+        dbname="data-mining-project",
+        user="root",
+        host="127.0.0.1",
+        password="root"
     )
 
+
 def create_cursor(connection):
-    # Declare a cursor object from the connection
-    try :
+    """Declare a cursor object from the connection.
+    """
+    try:
         cursor = connection.cursor()
     except ConnectionError:
         print("Error :", ConnectionError)
 
     return cursor
 
+
 def close_connection(connection):
     # Close the connection as well
     connection.close()
+
 
 def close_cursor(cursor):
     # Close the cursor object to avoid memory leaks
@@ -66,7 +74,7 @@ def select(statement):
 
     try:
         cursor.execute(statement)
-        result = cursor.fetchall() # return data from last query
+        result = cursor.fetchall()  # return data from last query
         print(result)
     except ValueError:
         print("Error while fetching data :", ValueError)
@@ -77,15 +85,17 @@ def select(statement):
     return result
 
 
-if __name__ == "__main__" :
-    
+if __name__ == "__main__":
+
     # Test phase
     connect_database()
     cursor = create_cursor(CONNECTION)
 
     print("Testing schema")
-    cursor.execute("SELECT tablename FROM pg_catalog.pg_tables WHERE schemaname='public'")    # execute 'SHOW TABLES' (but data is not returned)
-    tables = cursor.fetchall() # return data from last query
+    # execute 'SHOW TABLES' (but data is not returned)
+    cursor.execute(
+        "SELECT tablename FROM pg_catalog.pg_tables WHERE schemaname='public'")
+    tables = cursor.fetchall()  # return data from last query
     print(tables)
 
     close_cursor(cursor)

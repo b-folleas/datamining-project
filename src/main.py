@@ -41,7 +41,7 @@ if __name__ == "__main__":
             insert_table, artist_data_keys, artist_data_values)
 
     # Downloading these images
-    download.download_images(images_list)
+    download.download_images(images_source, images_list)
 
     # Set insert_table before insertion
     insert_table = 'paintings'

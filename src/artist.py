@@ -5,10 +5,6 @@ import kaggle_settings
 from kaggle.api.kaggle_api_extended import KaggleApi
 import database_driver
 
-'''
-Get Artists data
-'''
-
 
 api = KaggleApi()
 api.authenticate()
@@ -19,7 +15,12 @@ FOLDER_PATH = '../../Assets'
 pandas.set_option('display.max_columns', None)
 
 # downloading artists.csv file into ../../Assets that contains all metadata for each artist
+
+
 def download_artists(images_source):
+    """Download a artists.csv file from source API.
+    :param images_source: indicates the source from which download the artists.csv file.
+    :return: none"""
     print('Dowloading artists csv file...')
 
     api.dataset_download_file(images_source, 'artists.csv', path=FOLDER_PATH, force=False,
@@ -27,9 +28,14 @@ def download_artists(images_source):
 
 
 def seed_artists():
+    """Get Artists from the artists.csv file.
+    Get the artist meta data, ennrich some of them.
+    :return: dataframe object
+    """
     print('Seeding artists...')
 
     def get_century(years):
+
         years_list = years.split(' ')
         mean = (int(years_list[0].strip()) + int(years_list[2].strip())) / 2
         return (mean // 100 + 1)
@@ -40,10 +46,13 @@ def seed_artists():
 
     dataframe = pandas.read_csv('../../Assets/artists.csv')
 
-    dataframe = dataframe[["name", "years", "genre", "nationality", "paintings"]]
+    dataframe = dataframe[["name", "years",
+                           "genre", "nationality", "paintings"]]
 
-    dataframe['years'] = dataframe['years'].apply(get_century) # get century from years
-    dataframe['genre'] = dataframe['genre'].apply(get_first) # select first Genre only
+    dataframe['years'] = dataframe['years'].apply(
+        get_century)  # get century from years
+    dataframe['genre'] = dataframe['genre'].apply(
+        get_first)  # select first Genre only
 
     # add type for columns
     dataframe = dataframe.astype(dtype={"name": "<U200",
@@ -58,16 +67,20 @@ def seed_artists():
 
 
 def get_artist_from_name(name):
-
+    """Get Artist id from the artist name.
+    :return: artist id
+    """
     id = 0
 
-    try :
-        id = database_driver.select("SELECT artist_id FROM artists AS a WHERE a.name LIKE '%"+ name + "%'")[0]
-    except ValueError :
+    try:
+        id = database_driver.select(
+            "SELECT artist_id FROM artists AS a WHERE a.name LIKE '%" + name + "%'")[0]
+    except ValueError:
         print("Error while fetching data :", ValueError)
     return id
 
-if __name__ == "__main__" :
+
+if __name__ == "__main__":
 
     # download_artists()
     # seed_artists()
@@ -75,5 +88,4 @@ if __name__ == "__main__" :
     # print(seed_artists())
     # print(seed_artists().head())
 
-    
-    print(get_artist_from_name("")) 
+    print(get_artist_from_name(""))
