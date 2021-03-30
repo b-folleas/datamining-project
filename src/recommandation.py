@@ -16,7 +16,7 @@ if __name__ == "__main__":
     except ValueError:
         print("Error while fetching artists :", ValueError)
 
-    '''
+    
 
     # Get paintings added to the database thought time
     try:
@@ -53,7 +53,7 @@ if __name__ == "__main__":
     except ValueError:
         print("Error while fetching paintings liked by user :", ValueError)
 
-
+    '''
 
     # Get number of paintings liked for each artist
     try:
