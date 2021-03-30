@@ -3,7 +3,6 @@
 import database_driver
 import download
 import enrichment
-import insertion
 import artist
 
 if __name__ == "__main__":
@@ -16,16 +15,16 @@ if __name__ == "__main__":
     images_list = download.choose_rand_image(images_source, 30)
 
     # Downloading artists data
-    # artist.download_artists(images_source)
+    artist.download_artists(images_source)
 
     # Seeding all artists data to the database
-    # artists = artist.seed_artists()
+    artists = artist.seed_artists()
 
     # Set insert_table before insertion
     insert_table = 'artists'
 
     # Go through each artist to insert it's data in the database
-    # artist_data_keys = artists.columns.tolist()
+    artist_data_keys = artists.columns.tolist()
     # print(artist_data_keys)
 
     # print('Artist size :', artists.index)

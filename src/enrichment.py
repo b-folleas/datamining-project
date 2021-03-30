@@ -17,13 +17,15 @@ def get_predominant_color(img):
     """
     numarray = numpy.array(img.getdata(), numpy.uint8)
 
-    numarray.reshape(1, -1)
+    #numarray.reshape(-1, 1)
 
     cluster_count = 1  # Numbers of clusters
 
     # MiniBatch execution
     clusters = MiniBatchKMeans(n_clusters=cluster_count)
     clusters.fit(numarray)
+
+
 
     # Get primary color
     primary_color = '#%02x%02x%02x' % (
@@ -122,7 +124,11 @@ if __name__ == "__main__":
     image = {}
     # Setting an img_file_path to get meta_data from
     image["path"] = "./flower.jpg"  # Test phase
-    image["artist"] = "Monet"
+    img_file = Image.open(image["path"])
+
+    print(get_predominant_color(img_file))
+
+    #image["artist"] = "Monet"
 
     # Setting img_metada
-    img_meta_data = set_img_data(image)
+    #img_meta_data = set_img_data(image)

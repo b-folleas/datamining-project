@@ -21,3 +21,4 @@ VALUES
         'belette@live.live',
         'belettepassword'
     );
+
