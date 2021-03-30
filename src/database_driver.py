@@ -83,6 +83,26 @@ def select(statement):
 
     return result
 
+def prepared_execute(statement, name, args):
+    # Create cursor
+    cursor = create_cursor(CONNECTION)
+
+    try:
+        query = "PREPARE " + name + " AS " + statement
+
+        cursor.execute("EXECUTE " + name + args)
+        if cursor.rowcount > 0 :
+            result = cursor.fetchall() # return data from last query
+        else :
+            return None
+    except ValueError:
+        print("Error while fetching data :", ValueError)
+
+    # Close the cursor object to avoid memory leaks
+    cursor.close()
+
+    return result
+
 
 if __name__ == "__main__":
 

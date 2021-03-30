@@ -15,8 +15,31 @@ if __name__ == "__main__":
         artists = database_driver.select("SELECT * FROM artists")
     except ValueError:
         print("Error while fetching artists :", ValueError)
-
     '''
+
+    # Get users dashboards and see their likes on paintings
+    try: 
+        request = "SELECT count(h.fk_painting_id) AS paintings_number, u.user_id, u.username \
+        FROM users AS u \
+        INNER JOIN history AS h ON h.fk_user_id = u.user_id \
+        WHERE user_id = $1 \
+        GROUP BY u.user_id \
+        "
+
+        users_dashboard = database_driver.select(request)
+
+        df_users_dashboard = pd.DataFrame(users_dashboard,
+                                                 columns=['paintings_number', 'user_id', 'username'])
+
+        df_users_dashboard = df_users_dashboard.astype(dtype={"paintings_number": "int64",
+                                                                            "user_id": "<U200",
+                                                                            "username": "<U200"})
+
+        print(users_dashboard)
+
+    except ValueError:
+        print("Error while fetching users dashboard :", ValueError)
+
 
     # Get paintings added to the database thought time
     try:
@@ -25,14 +48,13 @@ if __name__ == "__main__":
             FROM paintings \
             GROUP BY date"
 
-        # print(request)
         number_paintings_through_time = database_driver.select(request)
 
         df_paintings_through_time = pd.DataFrame(number_paintings_through_time,
-                                                 columns=['date', 'painting_number', 'all_painting'])
+                                                 columns=['date', 'paintings_number', 'all_painting'])
 
         df_paintings_through_time['date'] = pd.to_datetime(df_paintings_through_time['date'], format='%Y-%m-%d')
-        df_paintings_through_time = df_paintings_through_time.astype(dtype={"painting_number": "int64",
+        df_paintings_through_time = df_paintings_through_time.astype(dtype={"paintings_number": "int64",
                                                                             "all_painting": "int64"})
 
         # print(number_paintings_through_time)
@@ -85,6 +107,20 @@ if __name__ == "__main__":
     plot.show()
 
     # df_likes_per_artist.plot(x=0, kind='bar', title="Number of liked images per author")
+
+    # Get user_history
+
+    args = input("fk_user_id = ?\n")
+
+    name = user_history
+    statement = "SELECT h.favorite, p.painting_id, p.fk_artist_id, a.name, p.date, p.width, p.height, h.fk_user_id \
+	FROM history AS h \
+	INNER JOIN paintings AS p ON p.painting_id = h.fk_painting_id \
+	INNER JOIN artists AS a ON p.fk_artist_id = a.artist_id \
+	WHERE h.fk_user_id = $1; \
+    "
+    
+    database_driver.prepared_execute(statement, name, args):
 
     # To test only visualization
     database_driver.close_connection(database_driver.CONNECTION)
