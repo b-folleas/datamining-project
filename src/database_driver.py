@@ -68,15 +68,13 @@ def insert(table, columns, values):
 
 
 def select(statement):
+
     # Create cursor
     cursor = create_cursor(CONNECTION)
 
     try:
         cursor.execute(statement)
-        if cursor.rowcount > 0 :
-            result = cursor.fetchall() # return data from last query
-        else :
-            return None
+        result = cursor.fetchall()  # return data from last query
     except ValueError:
         print("Error while fetching data :", ValueError)
 

@@ -2,27 +2,15 @@
 
 import database_driver
 import download
-
-import seed
+import enrichment
+import artist
 
 if __name__ == "__main__":
     images_source = 'ikarus777/best-artworks-of-all-time'
 
-    paintings_number = int(input('Enter the number of painting you want :'))
-
     # Connect to database, return connection
     database_driver.connect_database()
 
-    # Choosing random images
-    images_list = download.choose_rand_image(images_source, paintings_number)
-    
-    # Downloading these images
-    download.download_images(images_source, images_list)
-
-    # Seeding database and downloading files
-    seed.seed_database(images_source, images_list)
-
-    '''
     # Choosing random images
     images_list = download.choose_rand_image(images_source, 30)
 
@@ -73,8 +61,6 @@ if __name__ == "__main__":
         else:
             print("No insertion available, meta data is None")
     print("End of data extraction, enrichment and load.")
-
-    '''
 
     # Close database connection at the end of main script
     database_driver.close_connection(database_driver.CONNECTION)

@@ -17,7 +17,7 @@ def get_predominant_color(img):
     """
     numarray = numpy.array(img.getdata(), numpy.uint8)
 
-    numarray.reshape(-1, 1)
+    #numarray.reshape(-1, 1)
 
     cluster_count = 1  # Numbers of clusters
 
