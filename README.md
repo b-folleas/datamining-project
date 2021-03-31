@@ -21,18 +21,11 @@ Finally, you can start the python project
 ``
 python3 ./src/main.py
 ``
+
+In the main.py, you have to enter the number of images to download and the number of rows to create in history table for recommendation.
+
 ## Getting report
 
-Downloaded images are saved 
-<<<<<<< HEAD
-
-├── _ datamining-project   
-│   ├── lib   
-│   │   
-│   └── src   
-├── _Assets   
-└── reports_files
-=======
 ```
 ├── _ datamining-project
 │   ├── lib
