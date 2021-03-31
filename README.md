@@ -48,4 +48,3 @@ The main goal of the users' information is to be observable during visualization
 ## Tests
 
 Getting the recommandation result, we used functional testing to evaluate the relevancy of the recommandation system.
->>>>>>> 23c20f4af0b2fb59b80a0b14fc7ba915d4fb3209
