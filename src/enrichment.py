@@ -36,7 +36,7 @@ def get_predominant_color(img):
 
 def get_exif(image):
     """Get exif data from an image object.
-    :param image: An image object stored in the images_list.
+    :param image: (object) An image object stored in the images_list.
     :return: exif data or None.
     """
     img_exif = None

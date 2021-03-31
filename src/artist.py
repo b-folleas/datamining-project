@@ -20,7 +20,7 @@ pandas.set_option('display.max_columns', None)
 
 def download_artists(images_source):
     """Download a artists.csv file from source API.
-    :param images_source: indicates the source from which download the artists.csv file.
+    :param images_source: (string) indicates the source from which download the artists.csv file.
     :return: none"""
     print('Dowloading artists csv file...')
 

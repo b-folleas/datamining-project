@@ -39,7 +39,10 @@ def seed_artists(images_source):
 
 
 def seed_paintings(images_list):
-
+    '''Inserting paintings metadata from downloaded images.\n
+    :param images_list: (list) A list contianing image objects.\n
+    :return: None
+    '''
     print("Seeding paintings...")
     # Set insert_table before insertion
     insert_table = 'paintings'
@@ -64,7 +67,8 @@ def seed_paintings(images_list):
 
 
 def seed_history(number_rows):
-    '''Inserting random rows in the history table with the paintings seen by users.
+    '''Inserting random rows in the history table with the paintings seen by users.\n
+    :return: None
     '''
     print("Seeding history...")
     # Set insert_table before insertion
@@ -72,27 +76,29 @@ def seed_history(number_rows):
 
     # Initialisation keys and values
     data_keys = ['fk_user_id', 'fk_painting_id', 'favorite']
-    try :
+    try:
         users = db_manager.get_users()
     except TypeError:
         print("Error while randomly picking user :", TypeError)
-    try :
+    try:
         paintings = db_manager.get_paintings()
     except TypeError:
         print("Error while randomly picking painting :", TypeError)
-    try :
+    try:
         favorite_choice = ['true', 'false']
     except TypeError:
         print("Error while randomly picking favorite choice:", TypeError)
 
     # Go through each images_list item to get it's meta-data
     for i in range(number_rows):
-        user_id = random.choice(users)[0] # Getting one random user
-        painting_id = random.choice(paintings)[0] # Getting one random painting
+        user_id = random.choice(users)[0]  # Getting one random user
+        # Getting one random painting
+        painting_id = random.choice(paintings)[0]
         favorite = random.choice(favorite_choice)
-        
-        db_driver.insert(insert_table, data_keys, [user_id, painting_id, favorite])
-    
+
+        db_driver.insert(insert_table, data_keys, [
+                         user_id, painting_id, favorite])
+
     # Inserting these data
     print("End of insertion for history.")
 
@@ -113,9 +119,6 @@ if __name__ == "__main__":
 
     seed_history(2)
 
-   
-
-
     # Launch connection to the database, used for seeding the database
     database_driver.close_connection()
 
@@ -127,5 +130,3 @@ if __name__ == "__main__":
 
     # # Downloading these images
     # download.download_images(images_source, images_list)
-
-

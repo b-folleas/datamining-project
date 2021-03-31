@@ -66,6 +66,7 @@ def get_users():
         print("Error while fetching users :", ValueError)
         return -1
 
+
 def get_users_dashboard():
     '''Get users dashboards and see their number of likes on paintings.\n
     :return: users_dashboard.
@@ -74,6 +75,7 @@ def get_users_dashboard():
         request = "SELECT count(h.fk_painting_id) AS paintings_number, u.user_id, u.username \
         FROM users AS u \
         INNER JOIN history AS h ON h.fk_user_id = u.user_id \
+        LEFT JOIN preferences AS pf ON pf.preference_id = fk_preferences_id \
         GROUP BY u.user_id \
         "
         users_dashboard = database_driver.select(request)
@@ -116,7 +118,7 @@ def get_paintings():
     except ValueError:
         print("Error while fetching paintings :", ValueError)
         return -1
-    
+
 
 def get_paintings_through_time():
     '''Get paintings added to the database though time.\n
@@ -136,8 +138,9 @@ def get_paintings_through_time():
 
 
 def get_painting_metadata(painting_id):
-
-    print('painting id',painting_id)
+    '''Get paintings added to the database though time.\n
+    :return: number_paintings_through_time.
+    '''
     try:
 
         request = "SELECT p.painting_id, a.name, a.century, a.genre, a.nationality, a.number_paintings, p.orientation, p.flash, p.width, p.height, p.date, p.camera_make, p.camera_model \

@@ -54,9 +54,9 @@ def close_cursor(cursor):
 
 def insert(table, columns, values):
     '''Insert data into the table indicated for the current connection database.\n
-    :param table: table in which insert data.\n
-    :param columns: list of columns of the table.\n
-    :param values: list of values corresponding to the columns.\n
+    :param table: (string) table in which insert data.\n
+    :param columns: (list) list of columns of the table.\n
+    :param values: (list) list of values corresponding to the columns.\n
     :return: None.
     '''
     # Create cursor
@@ -79,9 +79,9 @@ def insert(table, columns, values):
     cursor.close()
 
 
-def select(statement): #TODO: Rename to execute(statement)
+def select(statement):  # TODO: Rename to execute(statement)
     '''Execute the statement and print the returning rows.\n
-    :param statement: the SQL query to execute.\n
+    :param statement: (string) the SQL query to execute.\n
     :return: Requested rows or None.
     '''
     # Create cursor
@@ -90,10 +90,10 @@ def select(statement): #TODO: Rename to execute(statement)
     try:
         cursor.execute(statement)
         CONNECTION.commit()
-        if cursor.rowcount > 0 :
-            result = cursor.fetchall() # return data from last query
-        else :
-            return None    
+        if cursor.rowcount > 0:
+            result = cursor.fetchall()  # return data from last query
+        else:
+            return None
     except ValueError:
         print("Error while fetching data :", ValueError)
 
@@ -102,7 +102,13 @@ def select(statement): #TODO: Rename to execute(statement)
 
     return result
 
+
 def prepared_execute(statement, name, args):
+    '''Prepare a statement with a given name and execute this statement \ 
+    and print the returning rows if exist.\n
+    :param statement: (string) the SQL query to execute.\n
+    :return: Requested rows or None.
+    '''
     # Create cursor
     cursor = create_cursor(CONNECTION)
 
@@ -113,9 +119,9 @@ def prepared_execute(statement, name, args):
         cursor.execute(query)
 
         cursor.execute("EXECUTE " + name + ' (' + args + ')')
-        if cursor.rowcount > 0 :
-            result = cursor.fetchall() # return data from last query
-        else :
+        if cursor.rowcount > 0:
+            result = cursor.fetchall()  # return data from last query
+        else:
             return None
     except ValueError:
         print("Error while fetching data :", ValueError)
