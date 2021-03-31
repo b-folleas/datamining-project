@@ -18,12 +18,8 @@ if __name__ == "__main__":
     # Downloading these images
     download.download_images(images_source, images_list)
 
-    # Seeding artists
-    seed.seed_artists(images_source)
-
-    # Seeding paintings
-    seed.seed_paintings(images_list)
-
+    seed.seed_database(images_source, images_list)
+    
     '''
     # Downloading artists data
     artist.download_artists(images_source)

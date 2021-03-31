@@ -90,7 +90,10 @@ def prepared_execute(statement, name, args):
     try:
         query = "PREPARE " + name + " AS " + statement
 
-        cursor.execute("EXECUTE " + name + args)
+        print(query)
+        cursor.execute(query)
+
+        cursor.execute("EXECUTE " + name + ' (' +args + ')')
         if cursor.rowcount > 0 :
             result = cursor.fetchall() # return data from last query
         else :

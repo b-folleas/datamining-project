@@ -59,10 +59,10 @@ if __name__ == "__main__":
 
         # print(number_paintings_through_time)
 
-        df_paintings_through_time.plot(kind='line', x='date', y='all_painting', color='red')
-        plot.title("Number of paintings Evolution Through Time")
-        plot.xlabel('date', fontsize=16)
-        plot.ylabel('count', fontsize=16)
+        # df_paintings_through_time.plot(kind='line', x='date', y='all_painting', color='red')
+        # plot.title("Number of paintings Evolution Through Time")
+        # plot.xlabel('date', fontsize=16)
+        # plot.ylabel('count', fontsize=16)
 
 
     except ValueError:
@@ -94,17 +94,17 @@ if __name__ == "__main__":
                                                                 "n_likes": "int64"})
         print(df_likes_per_artist)
 
-        df_likes_per_artist.plot(kind='bar', x='artist_name', y='n_likes', color='blue')
-        plot.title("Artists and liked paintings")
-        plot.xlabel('Artists', fontsize=16)
-        plot.ylabel('likes', fontsize=16)
+        # df_likes_per_artist.plot(kind='bar', x='artist_name', y='n_likes', color='blue')
+        # plot.title("Artists and liked paintings")
+        # plot.xlabel('Artists', fontsize=16)
+        # plot.ylabel('likes', fontsize=16)
 
     except ValueError:
         print("Error while fetching paintings liked for each artist :", ValueError)
 
     # Calling DataFrame from previous SQL statements
 
-    plot.show()
+    # plot.show()
 
     # df_likes_per_artist.plot(x=0, kind='bar', title="Number of liked images per author")
 
@@ -112,15 +112,30 @@ if __name__ == "__main__":
 
     args = input("fk_user_id = ?\n")
 
-    name = user_history
-    statement = "SELECT h.favorite, p.painting_id, p.fk_artist_id, a.name, p.date, p.width, p.height, h.fk_user_id \
+    name = "user_history"
+    statement = "SELECT h.favorite, p.painting_id, p.fk_artist_id, a.name, p.date, p.width, p.height \
 	FROM history AS h \
 	INNER JOIN paintings AS p ON p.painting_id = h.fk_painting_id \
 	INNER JOIN artists AS a ON p.fk_artist_id = a.artist_id \
 	WHERE h.fk_user_id = " + args +" ; \
     "
     
-    database_driver.prepared_execute(statement, name, args)
+    user_history = database_driver.prepared_execute(statement, name, args)
+
+    df_user_history = pd.DataFrame(user_history,
+                                        columns=['fav', 'painting_id', 'artist_id', 'artist_name', 'painting_date', 'painting_width', 'painting_height'])
+
+    df_user_history = df_user_history.astype(dtype={'fav' : 'bool',
+                                                    'painting_id' : 'int64',
+                                                    'artist_id' : 'int64',
+                                                    'artist_name' : "<U200",
+                                                    'painting_date' : 'datetime64',
+                                                    'painting_width' : 'int64',
+                                                    'painting_height' : 'int64'})
+    print(df_likes_per_artist)
+
+
+
 
     # To test only visualization
     database_driver.close_connection(database_driver.CONNECTION)
