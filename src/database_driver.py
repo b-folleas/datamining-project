@@ -64,7 +64,6 @@ def insert(table, columns, values):
 
     statement = "INSERT INTO " + table + " (" + str(', '.join(columns)) + ") VALUES (" + str(
         ', '.join(['%s'] * len(columns))) + ")"
-    print(statement)
 
     try:
         cursor.execute(statement, values)
@@ -91,7 +90,6 @@ def select(statement): #TODO: Rename to execute(statement)
     try:
         cursor.execute(statement)
         CONNECTION.commit()
-        print("statement executed")
         if cursor.rowcount > 0 :
             result = cursor.fetchall() # return data from last query
         else :
