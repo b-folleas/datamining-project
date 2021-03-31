@@ -3,6 +3,7 @@
 import database_driver
 import download
 import seed
+import visualization
 
 if __name__ == "__main__":
     images_source = 'ikarus777/best-artworks-of-all-time'
@@ -26,6 +27,9 @@ if __name__ == "__main__":
     # Recommendation
 
     # Visualization
+    user_id = input("fk_user_id = ?\n")
+
+    visualization.plot_user_history(user_id)
 
     # Launch connection to the database, used for seeding the database
     database_driver.close_connection()
