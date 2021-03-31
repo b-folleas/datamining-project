@@ -25,9 +25,9 @@ python3 ./src/main.py
 
 Downloaded images are saved 
 
-├── _ datamining-project
-│   ├── lib
-│   │   ...
-│   └── src
-├── _Assets
+├── _ datamining-project   
+│   ├── lib   
+│   │   
+│   └── src   
+├── _Assets   
 └── reports_files
