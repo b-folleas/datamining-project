@@ -22,7 +22,6 @@ if __name__ == "__main__":
         request = "SELECT count(h.fk_painting_id) AS paintings_number, u.user_id, u.username \
         FROM users AS u \
         INNER JOIN history AS h ON h.fk_user_id = u.user_id \
-        WHERE user_id = $1 \
         GROUP BY u.user_id \
         "
 
@@ -35,7 +34,8 @@ if __name__ == "__main__":
                                                                             "user_id": "<U200",
                                                                             "username": "<U200"})
 
-        print(users_dashboard)
+        print("User Dashboard")
+        print(df_users_dashboard)
 
     except ValueError:
         print("Error while fetching users dashboard :", ValueError)
@@ -117,10 +117,10 @@ if __name__ == "__main__":
 	FROM history AS h \
 	INNER JOIN paintings AS p ON p.painting_id = h.fk_painting_id \
 	INNER JOIN artists AS a ON p.fk_artist_id = a.artist_id \
-	WHERE h.fk_user_id = $1; \
+	WHERE h.fk_user_id = " + args +" ; \
     "
     
-    database_driver.prepared_execute(statement, name, args):
+    database_driver.prepared_execute(statement, name, args)
 
     # To test only visualization
     database_driver.close_connection(database_driver.CONNECTION)
