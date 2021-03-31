@@ -79,7 +79,7 @@ def get_user_history(user_id):
         INNER JOIN artists AS a ON p.fk_artist_id = a.artist_id \
         WHERE h.fk_user_id = " + user_id + " \
         ORDER BY p.painting_id ;"
-        user_history = database_driver.execute(request)
+        user_history = database_driver.select(request)
         return user_history
     except ValueError:
         print("Error while fetching user history :", ValueError)
