@@ -13,9 +13,8 @@ def truncate_tables(tables):
         str(', '.join(tables)) + " CASCADE"
     # Truncate artists and paintings tables
     try:
-        print(request)
+        print("Execute following request : " + request)
         truncate_result = database_driver.select(request)
-        print(truncate_result)
     except ValueError:
         print("Error while trying to truncate given tables", ValueError)
 
@@ -27,14 +26,16 @@ def remove_images(dir):
 
 if __name__ == "__main__":
 
-    print("Reseting database and files...")
 
     # Connect to database, return connection
     database_driver.connect_database()
 
+    print("Reseting database...")
     truncate_tables(LIST_TABLES)
 
+    print("Removing images...")
     remove_images(FOLDER_PATH)
 
+    print("Done.")
     # Close database connection at the end of main script
     database_driver.close_connection()

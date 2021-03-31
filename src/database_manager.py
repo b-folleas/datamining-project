@@ -51,6 +51,21 @@ def get_likes_by_artist():
 
 # USER #
 
+def get_users():
+    '''Get users from the database.\n
+    :return: users.
+    '''
+    try:
+        request = "SELECT u.user_id, u.username, u.email \
+        FROM users AS u \
+        ORDER BY u.user_id \
+        "
+        users = database_driver.select(request)
+        return users
+    except ValueError:
+        print("Error while fetching users :", ValueError)
+        return -1
+
 def get_users_dashboard():
     '''Get users dashboards and see their number of likes on paintings.\n
     :return: users_dashboard.
@@ -87,6 +102,20 @@ def get_user_history(user_id):
 
 
 # PAINTING #
+
+def get_paintings():
+    '''Get paintings added to the database.\n
+    :return: paintings.
+    '''
+    try:
+        request = "SELECT p.painting_id, p.fk_artist_id, p.orientation, p.flash, p.width, p.height, p.date, p.camera_make, p.camera_model \
+        FROM paintings AS p ORDER BY painting_id"
+        paintings = database_driver.select(request)
+        return paintings
+    except ValueError:
+        print("Error while fetching paintings :", ValueError)
+        return -1
+    
 
 def get_paintings_through_time():
     '''Get paintings added to the database though time.\n

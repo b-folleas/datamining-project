@@ -8,6 +8,7 @@ if __name__ == "__main__":
     images_source = 'ikarus777/best-artworks-of-all-time'
 
     number_images = int(input("Nombre d'images à télécharger :\n"))
+    number_history = int(input("Nombre de lignes à ajouter dans l'historique :\n"))
 
     # Choosing random images
     images_list = download.choose_rand_image(images_source, number_images)
@@ -18,8 +19,9 @@ if __name__ == "__main__":
     # Launch connection to the database, used for seeding the database
     database_driver.connect_database()
 
+
     # Seeding database
-    seed.seed_database(images_source, images_list)
+    seed.seed_database(images_source, images_list, number_history)
     
     # Recommendation
 
