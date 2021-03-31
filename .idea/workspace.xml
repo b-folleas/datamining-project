@@ -3,8 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="eb1cfe1a-c9f5-454a-8532-f5594ab1b665" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/artist.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/artist.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/database_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/database_manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/recommandation.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/recommandation.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,7 +41,7 @@
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
-  <component name="RunManager" selected="Python.visualization">
+  <component name="RunManager" selected="Python.artist">
     <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -166,9 +167,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.visualization" />
-        <item itemvalue="Python.recommandation" />
         <item itemvalue="Python.artist" />
+        <item itemvalue="Python.recommandation" />
+        <item itemvalue="Python.visualization" />
         <item itemvalue="Python.main" />
         <item itemvalue="Python.enrichment" />
       </list>
@@ -184,8 +185,16 @@
       <updated>1617110502182</updated>
       <workItem from="1617110505828" duration="224000" />
       <workItem from="1617110759199" duration="13531000" />
-      <workItem from="1617212206688" duration="1405000" />
+      <workItem from="1617212206688" duration="8701000" />
     </task>
+    <task id="LOCAL-00001" summary="Readme fix">
+      <created>1617222659941</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1617222659941</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -202,6 +211,10 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Readme fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="Readme fix" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -220,9 +233,9 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/datamining_project$main.coverage" NAME="main Coverage Results" MODIFIED="1617126987084" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
-    <SUITE FILE_PATH="coverage/datamining_project$recommandation.coverage" NAME="recommandation Coverage Results" MODIFIED="1617214320341" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/datamining_project$recommandation.coverage" NAME="recommandation Coverage Results" MODIFIED="1617223612670" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/datamining_project$enrichment.coverage" NAME="enrichment Coverage Results" MODIFIED="1617126926834" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/datamining_project$visualization.coverage" NAME="visualization Coverage Results" MODIFIED="1617214430822" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
-    <SUITE FILE_PATH="coverage/datamining_project$artist.coverage" NAME="artist Coverage Results" MODIFIED="1617134590565" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/datamining_project$artist.coverage" NAME="artist Coverage Results" MODIFIED="1617223856469" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
   </component>
 </project>

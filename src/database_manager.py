@@ -88,12 +88,13 @@ def get_user_history(user_id):
     :return: user_history.
     '''
     try:
-        request = "SELECT h.favorite, p.painting_id, p.fk_artist_id, a.name, p.date, p.width, p.height \
+        request = "SELECT h.favorite, p.orientation, p.flash, p.width, p.height, a.name,  a.century, a.genre, a.nationality  \
         FROM history AS h \
         INNER JOIN paintings AS p ON p.painting_id = h.fk_painting_id \
         INNER JOIN artists AS a ON p.fk_artist_id = a.artist_id \
-        WHERE h.fk_user_id = " + user_id + " \
+        WHERE h.fk_user_id = " + str(user_id) + " \
         ORDER BY p.painting_id ;"
+
         user_history = database_driver.select(request)
         return user_history
     except ValueError:
@@ -135,9 +136,15 @@ def get_paintings_through_time():
 
 
 def get_painting_metadata(painting_id):
+
+    print('painting id',painting_id)
     try:
-        request = "SELECT p.fk_artist_id,  p.orientation, p.flash, p.width, p.height, p.date, p.camera_make, p.camera_model \
-        FROM paintings AS p WHERE painting_id = " + str(painting_id) + " ORDER BY painting_id"
+
+        request = "SELECT p.painting_id, a.name, a.century, a.genre, a.nationality, a.number_paintings, p.orientation, p.flash, p.width, p.height, p.date, p.camera_make, p.camera_model \
+        FROM paintings AS p WHERE painting_id = " + str(painting_id) + " INNER JOIN artists AS a ON a.artist_id = p.fk_artist_id ORDER BY painting_id"
+
+        # request = "SELECT p.fk_artist_id,  p.orientation, p.flash, p.width, p.height, p.date, p.camera_make, p.camera_model \
+        # FROM paintings AS p WHERE painting_id = " + str(painting_id) + " ORDER BY " + str(painting_id)
 
         paintings = database_driver.select(request)[0]
         return paintings

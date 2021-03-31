@@ -4,6 +4,7 @@ import pandas as pandas
 import kaggle_settings
 from kaggle.api.kaggle_api_extended import KaggleApi
 import database_manager
+import database_driver
 
 
 api = KaggleApi()
@@ -44,6 +45,10 @@ def seed_artists():
         item = items.split(',')[0]
         return (item)
 
+    def get_last_name(items):
+        item = items.split(' ')[-1]
+        return (item)
+
     dataframe = pandas.read_csv('../../Assets/artists.csv')
 
     dataframe = dataframe[["name", "years",
@@ -53,6 +58,9 @@ def seed_artists():
         get_century)  # get century from years
     dataframe['genre'] = dataframe['genre'].apply(
         get_first)  # select first Genre only
+
+    dataframe['name'] = dataframe['name'].apply(
+        get_last_name)  # select first Genre only
 
     # add type for columns
     dataframe = dataframe.astype(dtype={"name": "<U200",
@@ -67,11 +75,11 @@ def seed_artists():
 
 
 if __name__ == "__main__":
-
+    database_driver.connect_database()
     # download_artists()
     # seed_artists()
 
     # print(seed_artists())
     # print(seed_artists().head())
 
-    print(database_manager.get_artist_id_from_name(""))
+    #print(seed_artists())
