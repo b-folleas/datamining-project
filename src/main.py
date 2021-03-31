@@ -36,6 +36,9 @@ if __name__ == "__main__":
     user_id = input("fk_user_id = ?\n")
 
     visualization.plot_user_history(user_id)
+    visualization.plot_users_dashboard()
+    visualization.plot_likes_by_artist()
+    visualization.plot_paintings_through_time()
 
     # Launch connection to the database, used for seeding the database
     db_driver.close_connection()
