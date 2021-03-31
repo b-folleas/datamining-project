@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import database_driver
+import database_driver as db_driver
 import os
 
 
@@ -18,7 +18,7 @@ def truncate_tables(tables):
     # Truncate artists and paintings tables
     try:
         print("Execute following request : " + request)
-        truncate_result = database_driver.select(request)
+        truncate_result = db_driver.select(request)
     except ValueError:
         print("Error while trying to truncate given tables", ValueError)
 
@@ -35,7 +35,7 @@ def remove_images(dir):
 if __name__ == "__main__":
 
     # Connect to database, return connection
-    database_driver.connect_database()
+    db_driver.connect_database()
 
     print("Reseting database...")
     truncate_tables(LIST_TABLES)
@@ -45,4 +45,4 @@ if __name__ == "__main__":
 
     print("Done.")
     # Close database connection at the end of main script
-    database_driver.close_connection()
+    db_driver.close_connection()

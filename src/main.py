@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import database_driver
+import database_driver as db_driver
 import download
 import seed
 import visualization
@@ -19,7 +19,7 @@ if __name__ == "__main__":
     download.download_images(images_source, images_list)
 
     # Launch connection to the database, used for seeding the database
-    database_driver.connect_database()
+    db_driver.connect_database()
 
     # Seeding database
     seed.seed_database(images_source, images_list, number_history)
@@ -32,4 +32,4 @@ if __name__ == "__main__":
     visualization.plot_user_history(user_id)
 
     # Launch connection to the database, used for seeding the database
-    database_driver.close_connection()
+    db_driver.close_connection()

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-import database_manager
-import database_driver
+import database_manager as db_manager
+import database_driver as db_driver
 import pandas as pd
 import matplotlib.pyplot as plot
 
@@ -10,7 +10,7 @@ REPORT_FOLDER = '../../Report'
 
 def plot_users_dashboard():
     # Building a dataframe from users_dashboard
-    df_users_dashboard = pd.DataFrame(database_manager.get_users_dashboard(),
+    df_users_dashboard = pd.DataFrame(db_manager.get_users_dashboard(),
                                       columns=['paintings_number', 'user_id', 'username'])
 
     df_users_dashboard = df_users_dashboard.astype(dtype={"paintings_number": "int64",
@@ -24,7 +24,7 @@ def plot_users_dashboard():
 
 def plot_paintings_through_time():
     # Building a dataframe from paintings through time
-    df_paintings_through_time = pd.DataFrame(database_manager.get_paintings_through_time(),
+    df_paintings_through_time = pd.DataFrame(db_manager.get_paintings_through_time(),
                                              columns=['date', 'paintings_number', 'all_painting'])
 
     df_paintings_through_time['date'] = pd.to_datetime(
@@ -48,7 +48,7 @@ def plot_paintings_through_time():
 def plot_likes_by_artist():
     # Building a dataframe from likes group by artist
 
-    df_likes_by_artist = pd.DataFrame(database_manager.get_likes_by_artist(),
+    df_likes_by_artist = pd.DataFrame(db_manager.get_likes_by_artist(),
                                       columns=['artist_id', 'artist_name', 'n_likes'])
 
     df_likes_by_artist = df_likes_by_artist.astype(dtype={"artist_name": "<U200",
@@ -71,7 +71,7 @@ def plot_user_history(user_id):
     :param user_id: (int) the id of the user to display the information.\n
     :return: None.
     '''
-    df_user_history = pd.DataFrame(database_manager.get_user_history(user_id),
+    df_user_history = pd.DataFrame(db_manager.get_user_history(user_id),
                                    columns=['fav', 'painting_id', 'artist_id', 'artist_name', 'painting_date', 'painting_width', 'painting_height'])
 
     df_user_history = df_user_history.astype(dtype={'fav': 'bool',
@@ -97,10 +97,10 @@ def plot_user_history(user_id):
 if __name__ == "__main__":
 
     # To test only visualization
-    database_driver.connect_database()
+    db_driver.connect_database()
 
     # Building a dataframe from users_dashboard
-    df_users_dashboard = pd.DataFrame(database_manager.get_users_dashboard(),
+    df_users_dashboard = pd.DataFrame(db_manager.get_users_dashboard(),
                                       columns=['paintings_number', 'user_id', 'username'])
 
     df_users_dashboard = df_users_dashboard.astype(dtype={"paintings_number": "int64",
@@ -121,7 +121,7 @@ if __name__ == "__main__":
 
 
     # Building a dataframe from paintings through time
-    df_paintings_through_time = pd.DataFrame(database_manager.get_paintings_through_time(),
+    df_paintings_through_time = pd.DataFrame(db_manager.get_paintings_through_time(),
                                              columns=['date', 'paintings_number', 'all_painting'])
 
     df_paintings_through_time['date'] = pd.to_datetime(
@@ -144,7 +144,7 @@ if __name__ == "__main__":
 
     # Building a dataframe from likes group by artist
 
-    df_likes_by_artist = pd.DataFrame(database_manager.get_likes_by_artist(),
+    df_likes_by_artist = pd.DataFrame(db_manager.get_likes_by_artist(),
                                       columns=['artist_id', 'artist_name', 'n_likes'])
 
     df_likes_by_artist = df_likes_by_artist.astype(dtype={"artist_name": "<U200",
@@ -164,7 +164,7 @@ if __name__ == "__main__":
     # Building a dataframe from users and their history
     user = input("fk_user_id = ?\n")
 
-    df_user_history = pd.DataFrame(database_manager.get_user_history(user),
+    df_user_history = pd.DataFrame(db_manager.get_user_history(user),
                                    columns=['fav', 'painting_id', 'artist_id', 'artist_name', 'painting_date', 'painting_width', 'painting_height'])
 
     df_user_history = df_user_history.astype(dtype={'fav': 'bool',
@@ -178,4 +178,4 @@ if __name__ == "__main__":
     print(df_user_history)
 
     # To test only visualization
-    database_driver.close_connection()
+    db_driver.close_connection()

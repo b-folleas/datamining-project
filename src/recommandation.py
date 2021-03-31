@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-import database_driver
-import database_manager
+import database_driver as db_driver
+import database_manager as db_manager
 from sklearn import tree
 import pandas as pd
 import numpy as np
@@ -10,7 +10,7 @@ from sklearn.preprocessing import LabelEncoder
 
 
 def user_recommend(user_id):
-    history = database_manager.get_user_history(user_id)
+    history = db_manager.get_user_history(user_id)
 
     dataframe = pd.DataFrame(history,
                              columns=['favorite', 'orientation', 'flash', 'width',
@@ -49,6 +49,8 @@ def user_recommend(user_id):
 
 
 if __name__ == "__main__":
-    database_driver.connect_database()
+    db_driver.connect_database()
 
     user_recommend(2)
+
+    db_driver.close_connection()

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import database_driver
+import database_driver as db_driver
 
 # Functions to get data from database
 
@@ -12,7 +12,7 @@ def get_artists():
     :return: artists
     '''
     try:
-        artists = database_driver.select("SELECT * FROM artists")
+        artists = db_driver.select("SELECT * FROM artists")
         return artists
     except ValueError:
         print("Error while fetching artists :", ValueError)
@@ -25,7 +25,7 @@ def get_artist_id_from_name(name):
     """
     id = 0
     try:
-        id = database_driver.select(
+        id = db_driver.select(
             "SELECT artist_id FROM artists AS a WHERE a.name LIKE '%" + name + "%'")[0]
     except ValueError:
         print("Error while fetching artist_id from name :", ValueError)
@@ -42,7 +42,7 @@ def get_likes_by_artist():
             INNER JOIN paintings AS p ON p.painting_id = h.fk_painting_id \
             INNER JOIN artists AS a ON a.artist_id = p.fk_artist_id \
             GROUP BY a.artist_id"
-        number_likes_by_artist = database_driver.select(request)
+        number_likes_by_artist = db_driver.select(request)
         return number_likes_by_artist
     except ValueError:
         print("Error while fetching paintings liked for each artist :", ValueError)
@@ -60,7 +60,7 @@ def get_users():
         FROM users AS u \
         ORDER BY u.user_id \
         "
-        users = database_driver.select(request)
+        users = db_driver.select(request)
         return users
     except ValueError:
         print("Error while fetching users :", ValueError)
@@ -78,7 +78,7 @@ def get_users_dashboard():
         LEFT JOIN preferences AS pf ON pf.preference_id = fk_preferences_id \
         GROUP BY u.user_id \
         "
-        users_dashboard = database_driver.select(request)
+        users_dashboard = db_driver.select(request)
         return users_dashboard
     except ValueError:
         print("Error while fetching users dashboard :", ValueError)
@@ -97,7 +97,7 @@ def get_user_history(user_id):
         WHERE h.fk_user_id = " + str(user_id) + " \
         ORDER BY p.painting_id ;"
 
-        user_history = database_driver.select(request)
+        user_history = db_driver.select(request)
         return user_history
     except ValueError:
         print("Error while fetching user history :", ValueError)
@@ -113,7 +113,7 @@ def get_paintings():
     try:
         request = "SELECT p.painting_id, p.fk_artist_id, p.orientation, p.flash, p.width, p.height, p.date, p.camera_make, p.camera_model \
         FROM paintings AS p ORDER BY painting_id"
-        paintings = database_driver.select(request)
+        paintings = db_driver.select(request)
         return paintings
     except ValueError:
         print("Error while fetching paintings :", ValueError)
@@ -130,7 +130,7 @@ def get_paintings_through_time():
             FROM paintings \
             GROUP BY date"
 
-        number_paintings_through_time = database_driver.select(request)
+        number_paintings_through_time = db_driver.select(request)
         return number_paintings_through_time
     except ValueError:
         print("Error while fetching paintings through time :", ValueError)
@@ -149,7 +149,7 @@ def get_painting_metadata(painting_id):
         # request = "SELECT p.fk_artist_id,  p.orientation, p.flash, p.width, p.height, p.date, p.camera_make, p.camera_model \
         # FROM paintings AS p WHERE painting_id = " + str(painting_id) + " ORDER BY " + str(painting_id)
 
-        paintings = database_driver.select(request)[0]
+        paintings = db_driver.select(request)[0]
         return paintings
     except ValueError:
         print("Error while fetching data :", ValueError)
@@ -159,7 +159,7 @@ def get_painting_metadata(painting_id):
 if __name__ == "__main__":
 
     # To test in database_manager
-    database_driver.connect_database()
+    db_driver.connect_database()
 
     # Users dashboard
     print("Users Dashboard")
@@ -180,4 +180,4 @@ if __name__ == "__main__":
     print(get_user_history(user_id))
 
     # To test in database_manager
-    database_driver.close_connection()
+    db_driver.close_connection()

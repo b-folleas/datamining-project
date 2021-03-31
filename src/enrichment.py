@@ -7,7 +7,7 @@ import math
 import datetime
 from sklearn.cluster import MiniBatchKMeans
 from pathlib import Path
-import database_manager
+import database_manager as db_manager
 
 
 def get_predominant_color(img):
@@ -86,7 +86,7 @@ def set_img_data(image):
         # To change, done here beacause of not null constraint
         img_meta_data["painting_path"] = image["path"]
         print(image["artist"])
-        img_meta_data["fk_artist_id"] = database_manager.get_artist_id_from_name(
+        img_meta_data["fk_artist_id"] = db_manager.get_artist_id_from_name(
             image["artist"])
 
         # Getting painting primary color

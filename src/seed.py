@@ -115,12 +115,12 @@ def seed_database(images_source, images_list, number_rows):
 
 if __name__ == "__main__":
     # Launch connection to the database, used for seeding the database
-    database_driver.connect_database()
+    db_driver.connect_database()
 
     seed_history(2)
 
     # Launch connection to the database, used for seeding the database
-    database_driver.close_connection()
+    db_driver.close_connection()
 
     # images_source = 'ikarus777/best-artworks-of-all-time'
     # number_paintings = 30
