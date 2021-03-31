@@ -23,6 +23,7 @@ def get_artist_id_from_name(name):
     """Get Artist id from the artist name.\n
     :return: artist id
     """
+    print("name,", name)
     id = 0
     try:
         id = db_driver.select(

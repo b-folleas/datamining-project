@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from datetime import datetime
 
 import database_driver as db_driver
 import database_manager as db_manager
@@ -18,26 +19,10 @@ def user_recommend(user_id):
 
     resultframe = dataframe['favorite']
 
-    resultframe = resultframe.astype(dtype={'favorite': "bool"})
-
+    # resultframe = resultframe.astype(dtype={'favorite': "bool"})
 
     metadataframe = dataframe[['orientation', 'flash', 'width',
-                               'height', 'artist_name', 'century', 'genre', 'artist_nationality']]
-
-    metadataframe = metadataframe.astype(dtype={'orientation': "int64", 'flash': "int64", 'width': "int64",
-                                        'height': "int64", 'artist_name': "<U200", 'century': "int64", 'genre': "<U200",
-                                        'artist_nationality': "<U200"})
-
-    #generating numerical labels
-    le1 = LabelEncoder()
-    dataframe['artist_name'] = le1.fit_transform(dataframe['artist_name'])
-
-    le2 = LabelEncoder()
-    dataframe['genre'] = le2.fit_transform(dataframe['genre'])
-
-    le3 = LabelEncoder()
-    dataframe['artist_nationality'] = le3.fit_transform(dataframe['artist_nationality'])
-
+                               'height']]
 
     # Use of random forest classifier
     rfc = RandomForestClassifier(n_estimators=10, max_depth=2,
@@ -45,7 +30,22 @@ def user_recommend(user_id):
 
     rfc = rfc.fit(metadataframe, resultframe)
 
+    paintings = database_manager.get_paintings()
+
     print(rfc.feature_importances_)
+
+    for item in paintings:
+        # item[6] = str(item[6])
+        #print(item)
+        test_item = [ item[2], item[3], item[4], item[5] ]
+        #print(test_item)
+        prediction = rfc.predict(
+            [test_item]
+        )
+        if ( prediction == True ):
+            return item
+
+
 
 
 if __name__ == "__main__":
@@ -54,3 +54,4 @@ if __name__ == "__main__":
     user_recommend(2)
 
     db_driver.close_connection()
+
