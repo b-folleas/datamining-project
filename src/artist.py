@@ -3,7 +3,7 @@
 import pandas as pandas
 import kaggle_settings
 from kaggle.api.kaggle_api_extended import KaggleApi
-import database_driver
+import database_manager
 
 
 api = KaggleApi()
@@ -66,20 +66,6 @@ def seed_artists():
     return dataframe
 
 
-def get_artist_from_name(name):
-    """Get Artist id from the artist name.
-    :return: artist id
-    """
-    id = 0
-
-    try:
-        id = database_driver.select(
-            "SELECT artist_id FROM artists AS a WHERE a.name LIKE '%" + name + "%'")[0]
-    except ValueError:
-        print("Error while fetching data :", ValueError)
-    return id
-
-
 if __name__ == "__main__":
 
     # download_artists()
@@ -88,4 +74,4 @@ if __name__ == "__main__":
     # print(seed_artists())
     # print(seed_artists().head())
 
-    print(get_artist_from_name(""))
+    print(database_manager.get_artist_id_from_name(""))

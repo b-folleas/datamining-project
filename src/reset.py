@@ -37,4 +37,4 @@ if __name__ == "__main__":
     remove_images(FOLDER_PATH)
 
     # Close database connection at the end of main script
-    database_driver.close_connection(database_driver.CONNECTION)
+    database_driver.close_connection()

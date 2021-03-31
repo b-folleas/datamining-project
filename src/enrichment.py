@@ -7,7 +7,7 @@ import math
 import datetime
 from sklearn.cluster import MiniBatchKMeans
 from pathlib import Path
-import artist
+import database_manager
 
 
 def get_predominant_color(img):
@@ -24,8 +24,6 @@ def get_predominant_color(img):
     # MiniBatch execution
     clusters = MiniBatchKMeans(n_clusters=cluster_count)
     clusters.fit(numarray)
-
-
 
     # Get primary color
     primary_color = '#%02x%02x%02x' % (
@@ -88,7 +86,7 @@ def set_img_data(image):
         # To change, done here beacause of not null constraint
         img_meta_data["painting_path"] = image["path"]
         print(image["artist"])
-        img_meta_data["fk_artist_id"] = artist.get_artist_from_name(
+        img_meta_data["fk_artist_id"] = database_manager.get_artist_id_from_name(
             image["artist"])
 
         # Getting painting primary color

@@ -7,38 +7,13 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import LabelEncoder
 
 
-def get_history(user_id):
-    try:
-        request = "SELECT fk_painting_id,favorite FROM history WHERE fk_user_id = " + str(
-            user_id) + " ORDER BY fk_painting_id"
-        user_history = database_driver.select(request)
-        return user_history
-
-    except ValueError:
-        print("Error while fetching data :", ValueError)
-        return -1
-
-
-def get_painting_metadata(painting_id):
-    try:
-        request = "SELECT p.fk_artist_id,  p.orientation, p.flash, p.width, p.height, p.date, p.camera_make, p.camera_model \
-        FROM paintings AS p WHERE painting_id = " + str(painting_id) + " ORDER BY painting_id"
-
-        paintings = database_driver.select(request)
-        return paintings[0]
-
-    except ValueError:
-        print("Error while fetching data :", ValueError)
-        return -1
-
-
 def user_recommend(user_id):
-    history = get_history(user_id)
+    history = database_manager.get_user_history(user_id)
     result = []
     data = []
 
     for item in history:
-        data.append(get_painting_metadata(item[0]))
+        data.append(database_manager.get_painting_metadata(item[0]))
         result.append(item[1])
 
     dataframe = pd.DataFrame(data,
@@ -77,15 +52,13 @@ def user_recommend(user_id):
     le7 = LabelEncoder()
     dataframe['height'] = le7.fit_transform(dataframe['height'])
 
-
-
     # Use of random forest classifier
     rfc = RandomForestClassifier(n_estimators=10, max_depth=2,
                                  random_state=0)
     rfc = rfc.fit(dataframe, resultframe.values.ravel())
 
-
     print(rfc.feature_importances_)
+
 
 '''
     #prediction

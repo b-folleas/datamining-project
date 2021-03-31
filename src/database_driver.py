@@ -8,8 +8,9 @@ CONNECTION = None
 
 
 def connect_database():
-    """Standard method to connect to the database.
-    The dbname, user, host, password are the specific attributes to specify.
+    """Standard method to connect to the database.\n
+    The dbname, user, host, password are the specific attributes to specify.\n
+    :return: None.
     """
 
     global CONNECTION
@@ -24,7 +25,8 @@ def connect_database():
 
 
 def create_cursor(connection):
-    """Declare a cursor object from the connection.
+    """Declare a cursor object from the connection.\n
+    :return: cursor.
     """
     try:
         cursor = connection.cursor()
@@ -34,18 +36,29 @@ def create_cursor(connection):
     return cursor
 
 
-def close_connection(connection):
-    # Close the connection as well
-    connection.close()
+def close_connection():
+    '''Close the connection to the database.\n
+    :return: None.
+    '''
+    CONNECTION.close()
 
 
 def close_cursor(cursor):
+    '''Close the cursor for the database operations.\n
+    :param cursor: cursor.\n
+    :return: None.
+    '''
     # Close the cursor object to avoid memory leaks
     cursor.close()
 
 
 def insert(table, columns, values):
-
+    '''Insert data into the table indicated for the current connection database.\n
+    :param table: table in which insert data.\n
+    :param columns: list of columns of the table.\n
+    :param values: list of values corresponding to the columns.\n
+    :return: None.
+    '''
     # Create cursor
     cursor = create_cursor(CONNECTION)
 
@@ -67,14 +80,22 @@ def insert(table, columns, values):
     cursor.close()
 
 
-def select(statement):
-
+def select(statement): #TODO: Rename to execute(statement)
+    '''Execute the statement and print the returning rows.\n
+    :param statement: the SQL query to execute.\n
+    :return: Requested rows or None.
+    '''
     # Create cursor
     cursor = create_cursor(CONNECTION)
 
     try:
         cursor.execute(statement)
-        result = cursor.fetchall()  # return data from last query
+        CONNECTION.commit()
+        print("statement executed")
+        if cursor.rowcount > 0 :
+            result = cursor.fetchall() # return data from last query
+        else :
+            return None    
     except ValueError:
         print("Error while fetching data :", ValueError)
 
@@ -93,7 +114,7 @@ def prepared_execute(statement, name, args):
         print(query)
         cursor.execute(query)
 
-        cursor.execute("EXECUTE " + name + ' (' +args + ')')
+        cursor.execute("EXECUTE " + name + ' (' + args + ')')
         if cursor.rowcount > 0 :
             result = cursor.fetchall() # return data from last query
         else :
@@ -123,6 +144,6 @@ if __name__ == "__main__":
     close_cursor(cursor)
 
     # Close the connection as well
-    close_connection(CONNECTION)
+    close_connection()
 
     # End Test phase
