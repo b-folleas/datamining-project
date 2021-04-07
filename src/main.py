@@ -3,7 +3,11 @@
 import database_driver as db_driver
 import download
 import seed
+
 import visualization
+
+import recommandation
+
 
 if __name__ == "__main__":
     images_source = 'ikarus777/best-artworks-of-all-time'
@@ -26,13 +30,15 @@ if __name__ == "__main__":
 
     # Recommendation
 
+    print("Recommendation : peinture id ", recommandation.user_recommend(2) )
+
     # Visualization
     user_id = int(input("Rentrer l'id de l'utilisateur à étudier :\n"))
 
     visualization.plot_user_history(user_id)
     visualization.plot_users_dashboard()
-    visualization.plot_paintings_through_time()
     visualization.plot_likes_by_artist()
+    visualization.plot_paintings_through_time()
 
     # Launch connection to the database, used for seeding the database
     db_driver.close_connection()

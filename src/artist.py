@@ -59,8 +59,6 @@ def seed_artists():
     dataframe['genre'] = dataframe['genre'].apply(
         get_first)  # select first Genre only
 
-    dataframe['name'] = dataframe['name'].apply(
-        get_last_name)  # select first Genre only
 
     # add type for columns
     dataframe = dataframe.astype(dtype={"name": "<U200",
