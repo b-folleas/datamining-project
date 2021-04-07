@@ -10,7 +10,10 @@ import random
 
 
 def seed_artists(images_source):
-
+    '''Inserting artists metadata from downloaded csv file.\n
+    :param images_source: (string) The source from which download the csv file.\n
+    :return: None
+    '''
     print("Seeding artists...")
 
     # Downloading artists data
@@ -68,6 +71,7 @@ def seed_paintings(images_list):
 
 def seed_history(number_rows):
     '''Inserting random rows in the history table with the paintings seen by users.\n
+    :param number_rows: (int) The number of rows to simulate an history.\n
     :return: None
     '''
     print("Seeding history...")

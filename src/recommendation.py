@@ -11,6 +11,11 @@ from sklearn.preprocessing import LabelEncoder
 
 
 def user_recommend(user_id):
+    '''Function description.\n
+    :param user_id: (int) The id of the user to chom we are recommending paintings to like.\n
+    :display: Printing to the terminal ...
+    :return: None
+    '''
     history = db_manager.get_user_history(user_id)
 
     dataframe = pd.DataFrame(history,

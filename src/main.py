@@ -6,7 +6,7 @@ import seed
 
 import visualization
 
-import recommandation
+import recommendation
 
 
 if __name__ == "__main__":
@@ -28,15 +28,15 @@ if __name__ == "__main__":
     # Seeding database
     seed.seed_database(images_source, images_list, number_history)
 
-    # Recommendation
-
-    print("Recommendation : peinture id ", recommandation.user_recommend(2) )
-
-    # Visualization
+    # Getting the user to study
     user_id = int(input("Rentrer l'id de l'utilisateur à étudier :\n"))
 
+    # Recommendation
+    print("Recommendation : painting_id ", recommendation.user_recommend(user_id))
+
+    # Visualization
     visualization.plot_user_history(user_id)
-    visualization.plot_users_dashboard()
+    # visualization.plot_users_dashboard()
     visualization.plot_likes_by_artist()
     visualization.plot_paintings_through_time()
 
