@@ -85,7 +85,6 @@ def set_img_data(image):
 
         # To change, done here beacause of not null constraint
         img_meta_data["painting_path"] = image["path"]
-        print(image["artist"])
         img_meta_data["fk_artist_id"] = db_manager.get_artist_id_from_name(
             image["artist"])
 
@@ -113,7 +112,6 @@ def set_img_data(image):
 
     except FileNotFoundError:
         print("Error :", FileNotFoundError)
-
         return None
 
 

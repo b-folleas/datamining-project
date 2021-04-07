@@ -11,7 +11,7 @@ from sklearn.preprocessing import LabelEncoder
 
 
 def user_recommend(user_id):
-    '''Function description.\n
+    '''___.\n
     :param user_id: (int) The id of the user to chom we are recommending paintings to like.\n
     :display: Printing to the terminal ...
     :return: None
@@ -35,7 +35,7 @@ def user_recommend(user_id):
 
     rfc = rfc.fit(metadataframe, resultframe)
 
-    paintings = database_manager.get_paintings()
+    paintings = db_manager.get_paintings()
 
     print(rfc.feature_importances_)
 

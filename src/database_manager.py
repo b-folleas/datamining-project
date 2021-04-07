@@ -23,7 +23,7 @@ def get_artist_id_from_name(name):
     """Get Artist id from the artist name.\n
     :return: artist id
     """
-    request = "SELECT artist_id FROM artists AS a WHERE '" + name + "' LIKE '%' || a.name || '%'"
+    request = "SELECT artist_id FROM artists AS a WHERE a.name LIKE '%" +name + "%'"
     try:
         id = db_driver.select(request)
         if id != None :
@@ -96,7 +96,7 @@ def get_user_history(user_id):
         INNER JOIN paintings AS p ON p.painting_id = h.fk_painting_id \
         INNER JOIN artists AS a ON p.fk_artist_id = a.artist_id \
         WHERE h.fk_user_id = " + str(user_id) + " \
-        ORDER BY p.painting_id ;"
+        ORDER BY p.painting_id"
 
         user_history = db_driver.select(request)
         return user_history

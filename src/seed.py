@@ -19,8 +19,8 @@ def seed_artists(images_source):
     # Downloading artists data
     artist.download_artists(images_source)
 
-    # Seeding all artists data to the database
-    artists = artist.seed_artists()
+    # Getting all artists data from csv file
+    artists = artist.get_artists_from_csv()
 
     # Set insert_table before insertion
     insert_table = 'artists'
@@ -35,11 +35,10 @@ def seed_artists(images_source):
         # print(artists.values[a])
 
         artist_data_values = artists.values[a]
-        print(artist_data_values)
 
         db_driver.insert(
             insert_table, artist_data_keys, artist_data_values)
-
+    print("Artists values inserted.\n")
 
 def seed_paintings(images_list):
     '''Inserting paintings metadata from downloaded images.\n
@@ -52,10 +51,7 @@ def seed_paintings(images_list):
 
     # Go through each images_list item to get it's meta-data
     for image in images_list:
-        print(image["path"])
         img_meta_data = enrichment.set_img_data(image)
-
-        print(img_meta_data)
 
         if img_meta_data:
             # Inserting these metadata of each image into the table paintings of the database
@@ -66,7 +62,7 @@ def seed_paintings(images_list):
                 insert_table, meta_data_keys, meta_data_values)
         else:
             print("No insertion available, meta data is None")
-    print("End of data extraction, enrichment and load of paintings.")
+    print("Paintings values inserted.\n")
 
 
 def seed_history(number_rows):
@@ -104,7 +100,7 @@ def seed_history(number_rows):
                          user_id, painting_id, favorite])
 
     # Inserting these data
-    print("End of insertion for history.")
+    print("History values inserted.\n")
 
 
 def seed_database(images_source, images_list, number_rows):
@@ -115,6 +111,8 @@ def seed_database(images_source, images_list, number_rows):
     seed_paintings(images_list)
 
     seed_history(number_rows)
+    print("Seeding the database over.\n")
+
 
 
 if __name__ == "__main__":

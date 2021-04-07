@@ -70,7 +70,6 @@ def insert(table, columns, values):
 
         # Then commit changes to the database
         CONNECTION.commit()
-        print("Values inserted.")
     except ValueError:
 
         print("Error while inserting data :", ValueError)

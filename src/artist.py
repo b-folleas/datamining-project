@@ -3,8 +3,8 @@
 import pandas as pandas
 import kaggle_settings
 from kaggle.api.kaggle_api_extended import KaggleApi
-import database_manager
-import database_driver
+import database_manager as db_manager
+import database_driver as db_driver
 
 
 api = KaggleApi()
@@ -28,12 +28,11 @@ def download_artists(images_source):
                               quiet=False)
 
 
-def seed_artists():
+def get_artists_from_csv():
     """Get Artists from the artists.csv file.
     Get the artist meta data, ennrich some of them.
     :return: dataframe object
     """
-    print('Seeding artists...')
 
     def get_century(years):
 
@@ -73,7 +72,7 @@ def seed_artists():
 
 
 if __name__ == "__main__":
-    database_driver.connect_database()
+    db_driver.connect_database()
     # download_artists()
     # seed_artists()
 

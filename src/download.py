@@ -24,10 +24,9 @@ def choose_rand_image(dataset, number_of_files):
 
     # list dataset files
     images_list = api.dataset_list_files(dataset).files
-    print(dataset)
-    print(images_list[0])
+    print("Source :", dataset)
 
-    print("Choosing", number_of_files, "random images from the image list")
+    print("Choosing", number_of_files, "random images from the image list :")
 
     for k in range(number_of_files):
         image = {"name": '', "path": '', "file": '', "artist": ''}
@@ -51,10 +50,9 @@ def download_images(dataset, images_list):
     :return: None.
     """
     for image in images_list:
-        print("Downloading", image["name"])
         api.dataset_download_file(dataset,
                                   str(image["file"]), path=FOLDER_PATH, force=False, quiet=False)
-    print("download finished")
+    print("Downloading images over.\n")
 
 
 if __name__ == "__main__":
