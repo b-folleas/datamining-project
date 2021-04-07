@@ -44,10 +44,10 @@ The main goal of the users' information is to be observable during visualization
 
 The visualization of the data of our appication is made out of two tables and two graphs so far :
 
-    - user_history(user_id) : Display a table of the information about a user given in paramater (user_id)
-    - users_dashboard() :  Display a table of the information about all users
-    - paintings_through_time() : Building a dataframe from paintings through time
-    - likes_by_artist() : Building a dataframe from likes group by artist
+- user_history(user_id) : Display a table of the information about a user given in paramater (user_id)
+- users_dashboard() :  Display a table of the information about all users
+- paintings_through_time() : Building a dataframe from paintings through time
+- likes_by_artist() : Building a dataframe from likes group by artist
 
 ## Tests
 
