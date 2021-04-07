@@ -23,13 +23,14 @@ def get_artist_id_from_name(name):
     """Get Artist id from the artist name.\n
     :return: artist id
     """
-    id = 0
+    request = "SELECT artist_id FROM artists AS a WHERE '" + name + "' LIKE '%' || a.name || '%'"
     try:
-        id = db_driver.select(
-            "SELECT artist_id FROM artists AS a WHERE a.name LIKE '%" + name + "%'")[0]
+        id = db_driver.select(request)
+        if id != None :
+            id = id[0][0] # Get only first result
     except ValueError:
         print("Error while fetching artist_id from name :", ValueError)
-    return id  # if id=0 then "artist unknown"
+    return id # if id = None then "artist unknown"
 
 
 def get_likes_by_artist():
@@ -89,8 +90,8 @@ def get_user_history(user_id):
     '''Get user_history with the pictures the user have seen and wich one were liked.\n
     :return: user_history.
     '''
-    try:
-        request = "SELECT h.favorite, p.orientation, p.flash, p.width, p.height, a.name,  a.century, a.genre, a.nationality  \
+    try:                                   
+        request = "SELECT h.favorite, p.painting_id, a.artist_id, a.name, a.century, a.genre, a.nationality, p.date, p.width, p.height, p.orientation, p.flash  \
         FROM history AS h \
         INNER JOIN paintings AS p ON p.painting_id = h.fk_painting_id \
         INNER JOIN artists AS a ON p.fk_artist_id = a.artist_id \

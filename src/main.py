@@ -7,8 +7,8 @@ import visualization
 
 if __name__ == "__main__":
     images_source = 'ikarus777/best-artworks-of-all-time'
-
-    number_images = int(input("Nombre d'images à télécharger :\n"))
+    
+    number_images = int(input("Nombre images à télécharger :\n"))
     number_history = int(
         input("Nombre de lignes à ajouter dans l'historique :\n"))
 
@@ -27,9 +27,12 @@ if __name__ == "__main__":
     # Recommendation
 
     # Visualization
-    user_id = input("fk_user_id = ?\n")
+    user_id = int(input("Rentrer l'id de l'utilisateur à étudier :\n"))
 
     visualization.plot_user_history(user_id)
+    visualization.plot_users_dashboard()
+    visualization.plot_paintings_through_time()
+    visualization.plot_likes_by_artist()
 
     # Launch connection to the database, used for seeding the database
     db_driver.close_connection()

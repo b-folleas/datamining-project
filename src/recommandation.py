@@ -13,8 +13,8 @@ def user_recommend(user_id):
     history = db_manager.get_user_history(user_id)
 
     dataframe = pd.DataFrame(history,
-                             columns=['favorite', 'orientation', 'flash', 'width',
-                                      'height', 'artist_name', 'century', 'genre', 'artist_nationality'])
+                             columns=['favorite', 'painting_id', 'artist_id', 'artist_name', 'century', 'genre', 'artist_nationality', 'date', 'width',
+                                      'height', 'orientation', 'flash'])
 
     resultframe = dataframe['favorite']
 
