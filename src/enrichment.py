@@ -11,10 +11,10 @@ import database_manager as db_manager
 
 
 def get_predominant_color(img):
-    """Get the predominant color of an image using MiniBatchKMeans clusterisation.
+    '''Get the predominant color of an image using MiniBatchKMeans clusterisation.
     :param img: An image file which has been already opened.
     :return: The predominant color as a string with the format #hexadecimal.
-    """
+    '''
     numarray = numpy.array(img.getdata(), numpy.uint8)
 
     #numarray.reshape(-1, 1)
@@ -35,10 +35,10 @@ def get_predominant_color(img):
 
 
 def get_exif(image):
-    """Get exif data from an image object.
+    '''Get exif data from an image object.
     :param image: (object) An image object stored in the images_list.
     :return: exif data or None.
-    """
+    '''
     img_exif = None
     try:
         img_file = Image.open(image["path"])
@@ -58,10 +58,10 @@ def get_exif(image):
 
 
 def set_img_data(image):
-    """Set the meta data to be inserted in database of an image object.
+    '''Set the meta data to be inserted in database of an image object.
     :param images_list: A standard list containing images object.
     :return: Object of the image meta data.
-    """
+    '''
     img_exif_data = get_exif(image)
 
     img_meta_data = {

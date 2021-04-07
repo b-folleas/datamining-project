@@ -8,10 +8,10 @@ CONNECTION = None
 
 
 def connect_database():
-    """Standard method to connect to the database.\n
+    '''Standard method to connect to the database.\n
     The dbname, user, host, password are the specific attributes to specify.\n
     :return: None.
-    """
+    '''
 
     global CONNECTION
 
@@ -25,9 +25,9 @@ def connect_database():
 
 
 def create_cursor(connection):
-    """Declare a cursor object from the connection.\n
+    '''Declare a cursor object from the connection.\n
     :return: cursor.
-    """
+    '''
     try:
         cursor = connection.cursor()
     except ConnectionError:

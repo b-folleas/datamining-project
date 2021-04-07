@@ -104,8 +104,8 @@ def seed_history(number_rows):
 
 
 def seed_database(images_source, images_list, number_rows):
-    """Seeding database and downloading files
-    """
+    '''Seeding database and downloading files
+    '''
     seed_artists(images_source)
 
     seed_paintings(images_list)

@@ -20,9 +20,9 @@ def get_artists():
 
 
 def get_artist_id_from_name(name):
-    """Get Artist id from the artist name.\n
+    '''Get Artist id from the artist name.\n
     :return: artist id
-    """
+    '''
     request = "SELECT artist_id FROM artists AS a WHERE a.name LIKE '%" +name + "%'"
     try:
         id = db_driver.select(request)

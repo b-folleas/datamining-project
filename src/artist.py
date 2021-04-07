@@ -19,9 +19,10 @@ pandas.set_option('display.max_columns', None)
 
 
 def download_artists(images_source):
-    """Download a artists.csv file from source API.
+    '''Download a artists.csv file from source API.
     :param images_source: (string) indicates the source from which download the artists.csv file.
-    :return: none"""
+    :return: none
+    '''
     print('Dowloading artists csv file...')
 
     api.dataset_download_file(images_source, 'artists.csv', path=FOLDER_PATH, force=False,
@@ -29,22 +30,33 @@ def download_artists(images_source):
 
 
 def get_artists_from_csv():
-    """Get Artists from the artists.csv file.
+    '''Get Artists from the artists.csv file.
     Get the artist meta data, ennrich some of them.
     :return: dataframe object
-    """
+    '''
 
     def get_century(years):
-
+        '''Get century based on the mean of a list of years (start, end) given in parameter.\n
+        :param years: (list) A list of two elements : the starting year and ending year.\n
+        :return: (int) century
+        '''
         years_list = years.split(' ')
         mean = (int(years_list[0].strip()) + int(years_list[2].strip())) / 2
         return (mean // 100 + 1)
 
     def get_first(items):
+        '''Get first element of a list.\n
+        :param items: (list) The list of items.\n
+        :return: (object) item.
+        '''
         item = items.split(',')[0]
         return (item)
 
     def get_last_name(items):
+        '''Get only lastname from a string containing the firstname and lastname.\n
+        :param items: (string) The string composed of the firstname and lastname.\n
+        :return: (string) lastname.
+        '''
         item = items.split(' ')[-1]
         return (item)
 

@@ -9,8 +9,9 @@ import matplotlib.pyplot as plot
 REPORT_FOLDER = '../../Report'
 
 def plot_users_dashboard():
-    # Building a dataframe from users_dashboard
-    
+    '''Display a table of the information about all users.\n
+    :return: None.
+    '''    
     users_dashboard_array = db_manager.get_users_dashboard()
     print('plot_users_dashboard')
     print(users_dashboard_array)
@@ -41,7 +42,9 @@ def plot_users_dashboard():
     
 
 def plot_paintings_through_time():
-    # Building a dataframe from paintings through time
+    '''Save a png file with the graph of the number of paintings through time.\n
+    :return: None.
+    '''
     df_paintings_through_time = pd.DataFrame(db_manager.get_paintings_through_time(),
                                              columns=['date', 'paintings_number', 'all_painting'])
 
@@ -64,8 +67,9 @@ def plot_paintings_through_time():
     plot.savefig(REPORT_FOLDER + filename + ".png")
 
 def plot_likes_by_artist():
-    # Building a dataframe from likes group by artist
-
+    '''Save a png file with the graph of the number of likes by artist.\n
+    :return: None.
+    '''
     df_likes_by_artist = pd.DataFrame(db_manager.get_likes_by_artist(),
                                       columns=['artist_id', 'artist_name', 'n_likes'])
 
