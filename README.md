@@ -53,6 +53,15 @@ The visualization of the data of our appication is made out of two tables and tw
 
 Getting the recommandation result, we used functional testing to evaluate the relevancy of the recommandation system.
 
+## Improvements
+
+A lot of this project functionalities could and should be improved such as follow :
+
+- Have a dynamic user profile creation
+- Define tags for the user and give it a more effective weight for the recommendation algorithm
+- A user should not see once again a painting already seen
+- Have new visualization tools such as the accuracy of the recommendation algoritm based on a test set
+
 ## Contributors
 
 [Beldjilali Iliès](https://github.com/ilies-bel) & [Folléas Brice](https://github.com/AmazingBrice)
