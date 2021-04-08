@@ -6,7 +6,6 @@ import database_driver as db_driver
 
 # ARTIST #
 
-
 def get_artists():
     '''Get all meta data about artists
     :return: artists
@@ -153,9 +152,6 @@ def get_painting_metadata(painting_id):
         request = "SELECT p.painting_id, a.name, a.century, a.genre, a.nationality, a.number_paintings, p.orientation, p.flash, p.width, p.height, p.date, p.camera_make, p.camera_model \
         FROM paintings AS p WHERE painting_id = " + str(painting_id) + " INNER JOIN artists AS a ON a.artist_id = p.fk_artist_id ORDER BY painting_id"
 
-        # request = "SELECT p.fk_artist_id,  p.orientation, p.flash, p.width, p.height, p.date, p.camera_make, p.camera_model \
-        # FROM paintings AS p WHERE painting_id = " + str(painting_id) + " ORDER BY " + str(painting_id)
-
         paintings = db_driver.select(request)[0]
         return paintings
     except ValueError:
@@ -164,6 +160,7 @@ def get_painting_metadata(painting_id):
 
 
 if __name__ == "__main__":
+    # Test field
 
     # To test in database_manager
     db_driver.connect_database()

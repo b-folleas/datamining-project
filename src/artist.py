@@ -84,6 +84,8 @@ def get_artists_from_csv():
 
 
 if __name__ == "__main__":
+    # Test field
+    
     db_driver.connect_database()
     # download_artists()
     # seed_artists()

@@ -11,7 +11,7 @@ from sklearn.preprocessing import LabelEncoder
 
 
 def user_recommend(user_id):
-    '''___.\n
+    '''Recommend a paint_id based on the user history.\n
     :param user_id: (int) The id of the user to chom we are recommending paintings to like.\n
     :display: Printing to the terminal ...
     :return: None
@@ -42,10 +42,7 @@ def user_recommend(user_id):
     print(rfc.feature_importances_)
 
     for item in paintings:
-        # item[6] = str(item[6])
-        #print(item)
         test_item = [ item[2], item[3], item[4], item[5] ]
-        #print(test_item)
         prediction = rfc.predict(
             [test_item]
         )
@@ -53,9 +50,9 @@ def user_recommend(user_id):
             return item
 
 
-
-
 if __name__ == "__main__":
+    # Test field
+
     db_driver.connect_database()
 
     user_recommend(2)

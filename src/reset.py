@@ -33,7 +33,8 @@ def remove_images(dir):
 
 
 if __name__ == "__main__":
-
+    # Test field
+    
     # Connect to database, return connection
     db_driver.connect_database()
 

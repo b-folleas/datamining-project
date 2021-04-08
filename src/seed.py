@@ -116,6 +116,8 @@ def seed_database(images_source, images_list, number_rows):
 
 
 if __name__ == "__main__":
+    # Test field
+
     # Launch connection to the database, used for seeding the database
     db_driver.connect_database()
 

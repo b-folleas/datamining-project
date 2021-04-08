@@ -25,14 +25,14 @@ def plot_users_dashboard():
                                                             "username": "<U200"})
 
         print("Users Dashboard")
-        # print(df_users_dashboard)
-        
-        df_users_dashboard.plot(0, frame_on=False) # no visible frame
-        df_users_dashboard.xaxis.set_visible(False) # hide the x axis
-        df_users_dashboard.yaxis.set_visible(False) # hide the y axis
+        print(df_users_dashboard)
 
-        filename = "users_dashboard"
-        plot.savefig(REPORT_FOLDER + filename + ".png")
+        # df_users_dashboard.plot(0, frame_on=False) # no visible frame
+        # df_users_dashboard.xaxis.set_visible(False) # hide the x axis
+        # df_users_dashboard.yaxis.set_visible(False) # hide the y axis
+
+        # filename = "users_dashboard"
+        # plot.savefig(REPORT_FOLDER + filename + ".png")
 
     else :
         print(users_dashboard_array)
@@ -112,22 +112,21 @@ def plot_user_history(user_id):
                                                         'painting_flash': 'int64'
                                                         })
         print("User history : " + str(user_id))
-        # print(df_user_history)
+        print(df_user_history)
 
-        df_user_history.plot(1, frame_on=False) # no visible frame
-        df_user_history.xaxis.set_visible(False) # hide the x axis
-        df_user_history.yaxis.set_visible(False) # hide the y axis
-
-
+        # df_user_history.plot(1, frame_on=False) # no visible frame
+        # df_user_history.xaxis.set_visible(False) # hide the x axis
+        # df_user_history.yaxis.set_visible(False) # hide the y axis
 
 
-        filename = "users_dashboard"
-        plot.savefig(REPORT_FOLDER + filename + ".png")
+        # filename = "users_dashboard"
+        # plot.savefig(REPORT_FOLDER + filename + ".png")
     else :
         print(user_history_array)
         print('No data for this user.')
 
 if __name__ == "__main__":
+    # Test field
 
     # To test only visualization
     db_driver.connect_database()
@@ -146,7 +145,6 @@ if __name__ == "__main__":
     ax = plot(111, frame_on=False) # no visible frame
     ax.xaxis.set_visible(False)  # hide the x axis
     ax.yaxis.set_visible(False)  # hide the y axis
-
 
 
     filename = "users_dashboard"

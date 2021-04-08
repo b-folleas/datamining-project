@@ -56,7 +56,8 @@ def download_images(dataset, images_list):
 
 
 if __name__ == "__main__":
-
+    # Test field
+    
     images_source = 'ikarus777/best-artworks-of-all-time'
 
     # Getting all the downloaded images in a list from download.py

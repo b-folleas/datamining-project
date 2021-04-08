@@ -39,6 +39,12 @@ At first users have generated directly from the postgresql database's docker con
 
 The users' information are standard information such as username, email, password and also preferences of the user such as the favorite color, orientation or size.
 The main goal of the users' information is to be observable during visualization through a graph.
+## Recommendation
+
+Recommendation is based on a combination metadata and semantic information through a random tree algorithme.  
+
+To test it. Choose a user id (ex: 1) after starting the main. The recommendation is more precise and pertinent as the amount of data (number of history entries) is rich. 
+
 
 ## Visualization
 

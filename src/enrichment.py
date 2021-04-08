@@ -120,7 +120,8 @@ def set_img_data(image):
 
 
 if __name__ == "__main__":
-
+    # Test field
+    
     image = {}
     # Setting an img_file_path to get meta_data from
     image["path"] = "./flower.jpg"  # Test phase

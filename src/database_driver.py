@@ -132,8 +132,8 @@ def prepared_execute(statement, name, args):
 
 
 if __name__ == "__main__":
-
-    # Test phase
+    # Test field
+    
     connect_database()
     cursor = create_cursor(CONNECTION)
 
@@ -148,5 +148,3 @@ if __name__ == "__main__":
 
     # Close the connection as well
     close_connection()
-
-    # End Test phase
