@@ -28,8 +28,13 @@ def get_artist_id_from_name(name):
         id = db_driver.select(request)
         if id != None :
             id = id[0][0] # Get only first result
+
     except ValueError:
         print("Error while fetching artist_id from name :", ValueError)
+
+    print("artist name", name )
+    print("artist id", id )
+
     return id # if id = None then "artist unknown"
 
 
@@ -99,6 +104,7 @@ def get_user_history(user_id):
         ORDER BY p.painting_id ;"
 
         user_history = db_driver.select(request)
+        print("user history : ", request)
         return user_history
     except ValueError:
         print("Error while fetching user history :", ValueError)

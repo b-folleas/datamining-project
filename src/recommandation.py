@@ -12,7 +12,7 @@ from sklearn.preprocessing import LabelEncoder
 
 def user_recommend(user_id):
     history = db_manager.get_user_history(user_id)
-
+    print(history)
     dataframe = pd.DataFrame(history,
                              columns=['favorite', 'painting_id', 'artist_id', 'artist_name', 'century', 'genre', 'artist_nationality', 'date', 'width',
                                       'height', 'orientation', 'flash'])
@@ -28,9 +28,11 @@ def user_recommend(user_id):
     rfc = RandomForestClassifier(n_estimators=10, max_depth=2,
                                  random_state=0)
 
+    print("resultframe", metadataframe)
+
     rfc = rfc.fit(metadataframe, resultframe)
 
-    paintings = database_manager.get_paintings()
+    paintings = db_manager.get_paintings()
 
     print(rfc.feature_importances_)
 
