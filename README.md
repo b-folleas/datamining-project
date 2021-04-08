@@ -51,7 +51,7 @@ The visualization of the data of our appication is made out of two tables and tw
 
 ## Tests
 
-Getting the recommandation result, we used functional testing to evaluate the relevancy of the recommandation system.
+Getting the recommendation result, we used functional testing to evaluate the relevancy of the recommendation system.
 
 ## Improvements
 
